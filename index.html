@@ -1,52 +1,217 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="ht">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mon Site Web</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(120deg, #4facfe, #00f2fe);
-      color: #fff;
-      text-align: center;
-    }
-    header {
-      padding: 50px 20px;
-    }
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-      opacity: 0.9;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 25px;
-      background: #fff;
-      color: #333;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jwèt Memwa Egzagon</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        #status {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+
+        /* Griy pou kenbe egzagon yo */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 70px);
+            gap: 15px 5px;
+            justify-content: center;
+        }
+
+        /* Estil pou chak Egzagon */
+        .hexagon {
+            width: 70px;
+            height: 80px;
+            background-color: #333;
+            position: relative;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: transparent; /* Kache nimewo a o kòmansman */
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            user-select: none;
+            border: 2px solid #000;
+        }
+
+        .hexagon:active {
+            transform: scale(0.95);
+        }
+
+        /* Lè yo klike sou egzagon an (Koulè yo ap parèt) */
+        .hexagon.flipped {
+            color: white !important; /* Montre nimewo a */
+        }
+
+        /* Koulè espesifik pou pè yo (menm jan ak foto a) */
+        .hexagon[data-value="10"] { --bg-color: #00bcd4; } /* Ble klè */
+        .hexagon[data-value="12"] { --bg-color: #4a148c; } /* Vyolèt */
+        .hexagon[data-value="13"] { --bg-color: #ff9800; } /* Oraunj */
+        .hexagon[data-value="14"] { --bg-color: #e91e63; } /* Woz */
+        .hexagon[data-value="15"] { --bg-color: #2e7d32; } /* Vèt */
+
+        /* Lè jwè a klike sou li, li pran koulè pa li */
+        .hexagon.flipped {
+            background-color: var(--bg-color);
+        }
+
+        /* Lè jwè a jwenn yon pè ki korèk */
+        .hexagon.matched {
+            background-color: var(--bg-color);
+            color: white;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #00bcd4;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #008ba3;
+        }
+    </style>
 </head>
-<body>  <header>
-    <h1>Byenveni sou sit mwen</h1>
-    <p>Mwen kreye sit sa ak HTML + CSS</p>
-    <a class="btn" href="#">Klike la</a>
-  </header>  <footer>
-    © 2026 - Sit pèsonèl mwen
-  </footer></body>
+<body>
+
+    <h1>Egzagon Memwa</h1>
+    <div id="status">Klike sou yon egzagon pou kòmanse!</div>
+
+    <div class="grid-container" id="grid"></div>
+
+    <button onclick="initGame()">Rekòmanse Jwèt la</button>
+
+    <script>
+        // Nou kreye pè nimewo yo (Chak nimewo gen parèy li)
+        const itemValues = [10, 10, 12, 12, 13, 13, 14, 14, 15, 15];
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let matchesFound = 0;
+
+        const grid = document.getElementById('grid');
+        const statusText = document.getElementById('status');
+
+        // Fonksyon pou melanje nimewo yo ozafa (Shuffle)
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        // Fonksyon pou kòmanse jwèt la
+        function initGame() {
+            grid.innerHTML = '';
+            statusText.innerText = "Chache pè nimewo ki sanble yo!";
+            statusText.style.color = "#ffeb3b";
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+            matchesFound = 0;
+
+            const shuffledValues = shuffle([...itemValues]);
+
+            // Kreye egzagon yo dinamikman nan HTML la
+            shuffledValues.forEach(value => {
+                const hex = document.createElement('div');
+                hex.classList.add('hexagon');
+                hex.dataset.value = value;
+                hex.innerText = value;
+                hex.addEventListener('click', flipCard);
+                grid.appendChild(hex);
+            });
+        }
+
+        // Aksyon lè yon moun klike sou yon egzagon
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return; // Si ou klike sou menm egzagon an de fwa
+
+            this.classList.add('flipped');
+
+            if (!firstCard) {
+                // Premye klik
+                firstCard = this;
+                return;
+            }
+
+            // Dezyèm klik
+            secondCard = this;
+            lockBoard = true;
+
+            checkMatch();
+        }
+
+        // Verifikasyon si de klik yo gen menm nimewo a
+        function checkMatch() {
+            let isMatch = firstCard.dataset.value === secondCard.dataset.value;
+
+            if (isMatch) {
+                disableCards();
+            } else {
+                gameOver();
+            }
+        }
+
+        // Si nimewo yo parèy (Jwè a genyen pè sa a)
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            
+            matchesFound += 2;
+            if (matchesFound === itemValues.length) {
+                statusText.innerText = "Felisitasyon! Ou genyen jwèt la! 🎉";
+                statusText.style.color = "#4caf50";
+            }
+
+            resetBoard();
+        }
+
+        // Si nimewo yo PA parèy (Jwè a pèdi)
+        function gameOver() {
+            statusText.innerText = "Ou Pèdi! Nimewo yo pa menm. ❌";
+            statusText.style.color = "#f44336";
+            
+            // Jwèt la ap bloke, jwè a dwe peze "Rekòmanse" pou l rejwe
+            lockBoard = true; 
+        }
+
+        // Reyisyalize varyab yo pou pwochen klik la
+        function resetBoard() {
+            [firstCard, secondCard] = [null, null];
+            lockBoard = false;
+        }
+
+        // Kòmanse jwèt la lè paj la chaje
+        initGame();
+    </script>
+
+</body>
 </html>
