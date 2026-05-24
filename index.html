@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Egzagon Memwa PRO MAX 🔥</title>
+<title>🔥 Egzagon Memory 8 PRO 🔥</title>
 
 <style>
 
@@ -14,22 +14,29 @@ box-sizing:border-box;
 }
 
 body{
-background:
-linear-gradient(-45deg,#000,#07131d,#00141a,#000);
-background-size:400% 400%;
-animation:bgmove 10s ease infinite;
-font-family:Arial,sans-serif;
-color:white;
 min-height:100vh;
 display:flex;
-flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
+flex-direction:column;
+font-family:Arial,sans-serif;
 overflow:hidden;
-padding:10px;
+
+background:
+linear-gradient(-45deg,
+#000000,
+#071b2b,
+#00151f,
+#0d001a,
+#000);
+
+background-size:400% 400%;
+animation:bgMove 10s ease infinite;
+color:white;
+padding:20px;
 }
 
-@keyframes bgmove{
+@keyframes bgMove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
@@ -37,72 +44,100 @@ padding:10px;
 
 h1{
 font-size:2rem;
-margin-bottom:10px;
-color:#00e5ff;
-text-shadow:0 0 20px #00e5ff;
+margin-bottom:20px;
 text-align:center;
+color:#00e5ff;
+
+text-shadow:
+0 0 10px #00e5ff,
+0 0 25px #00ffff;
+
 animation:titleGlow 2s infinite alternate;
 }
 
 @keyframes titleGlow{
 from{
-text-shadow:0 0 10px #00e5ff;
+transform:scale(1);
 }
 to{
-text-shadow:0 0 30px #00ffff;
+transform:scale(1.04);
 }
+}
+
+.surface{
+
+padding:25px;
+border-radius:30px;
+
+background:
+rgba(255,255,255,0.05);
+
+backdrop-filter:blur(12px);
+
+border:1px solid rgba(255,255,255,0.1);
+
+box-shadow:
+0 0 30px rgba(0,229,255,0.2),
+inset 0 0 20px rgba(255,255,255,0.03);
+
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
 .scoreboard{
 display:flex;
 gap:15px;
-margin-bottom:15px;
+margin-bottom:20px;
 flex-wrap:wrap;
 justify-content:center;
 }
 
-.score-box{
-background:rgba(255,255,255,0.05);
-padding:12px 20px;
-border-radius:20px;
+.score{
+padding:12px 18px;
+border-radius:15px;
+
+background:
+rgba(255,255,255,0.07);
+
 border:1px solid #00e5ff;
-backdrop-filter:blur(5px);
-box-shadow:0 0 15px rgba(0,229,255,0.4);
+
+box-shadow:
+0 0 15px rgba(0,229,255,0.2);
+
 font-weight:bold;
 }
 
 #status{
 margin-bottom:20px;
-font-weight:bold;
 font-size:1rem;
-text-align:center;
+font-weight:bold;
 color:#fff176;
-min-height:30px;
-padding:0 10px;
+text-align:center;
+min-height:25px;
 }
 
-.honeycomb{
+.board{
 display:flex;
 flex-direction:column;
 align-items:center;
-padding:20px;
-border-radius:25px;
-background:rgba(255,255,255,0.03);
-backdrop-filter:blur(6px);
-box-shadow:0 0 40px rgba(0,229,255,0.15);
 }
 
 .row{
 display:flex;
-margin-top:-12px;
+margin-top:-18px;
 }
 
-/* EGZAGON */
+.row:first-child{
+margin-top:0;
+}
 
-.hexagon{
-width:65px;
-height:74px;
-margin:3px;
+/* HEXAGON */
+
+.hex{
+width:90px;
+height:100px;
+margin:6px;
 
 clip-path:polygon(
 50% 0%,
@@ -117,98 +152,98 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-font-size:1.5rem;
+font-size:2rem;
 font-weight:bold;
-color:white;
+
 cursor:pointer;
-transition:0.3s;
-position:relative;
-transform-style:preserve-3d;
 user-select:none;
 
+position:relative;
+
+transition:0.3s;
+
 background-size:300% 300%;
-animation:colorMove 5s ease infinite;
+animation:colorFlow 6s ease infinite;
 
 box-shadow:
-0 0 15px rgba(0,0,0,0.6),
-0 0 20px rgba(0,229,255,0.4),
-inset 0 0 15px rgba(255,255,255,0.1);
+0 0 20px rgba(0,0,0,0.5),
+0 0 15px rgba(255,255,255,0.1),
+inset 0 0 15px rgba(255,255,255,0.08);
 }
 
-/* KOULÈ DIFERAN */
+/* KOULÈ */
 
-.hexagon:nth-child(1n){
+.hex:nth-child(1n){
 background:
-linear-gradient(-45deg,#ff1744,#ff9100,#ffea00,#ff1744);
+linear-gradient(-45deg,
+#ff1744,
+#ff9100,
+#ffea00,
+#ff1744);
 }
 
-.hexagon:nth-child(2n){
+.hex:nth-child(2n){
 background:
-linear-gradient(-45deg,#00e5ff,#2979ff,#651fff,#00e5ff);
+linear-gradient(-45deg,
+#00e5ff,
+#2979ff,
+#651fff,
+#00e5ff);
 }
 
-.hexagon:nth-child(3n){
+.hex:nth-child(3n){
 background:
-linear-gradient(-45deg,#00ff99,#00c853,#64dd17,#00ff99);
+linear-gradient(-45deg,
+#00ff99,
+#00c853,
+#64dd17,
+#00ff99);
 }
 
-.hexagon:nth-child(4n){
+.hex:nth-child(4n){
 background:
-linear-gradient(-45deg,#ff00ff,#d500f9,#651fff,#ff00ff);
+linear-gradient(-45deg,
+#ff00ff,
+#d500f9,
+#651fff,
+#ff00ff);
 }
 
-.hexagon:nth-child(5n){
-background:
-linear-gradient(-45deg,#ff6d00,#ff1744,#ffea00,#ff6d00);
-}
-
-@keyframes colorMove{
+@keyframes colorFlow{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
-.hexagon:hover{
+.hex:hover{
 transform:
 scale(1.08)
-rotateZ(2deg);
-
-filter:brightness(1.2);
+rotate(2deg);
 
 box-shadow:
-0 0 25px #00e5ff,
-0 0 40px rgba(255,255,255,0.4);
+0 0 20px #00e5ff,
+0 0 40px rgba(255,255,255,0.2);
 }
 
-.hexagon.flipped{
-animation:
-flip 0.4s,
-pulse 1s infinite;
+.hex.flip{
+animation:flip 0.4s;
 }
 
 @keyframes flip{
-0%{transform:rotateY(0deg);}
-100%{transform:rotateY(180deg);}
-}
-
-@keyframes pulse{
 0%{
-box-shadow:0 0 10px white;
-}
-50%{
-box-shadow:0 0 25px #00e5ff;
+transform:rotateY(0deg);
 }
 100%{
-box-shadow:0 0 10px white;
+transform:rotateY(180deg);
 }
 }
 
-.hexagon.matched{
-animation:glow 1s infinite alternate;
+.hex.match{
+animation:matchGlow 1s infinite alternate;
 pointer-events:none;
 }
 
-@keyframes glow{
+@keyframes matchGlow{
 from{
 box-shadow:0 0 10px #00ff99;
 }
@@ -217,85 +252,45 @@ box-shadow:0 0 30px #00ff99;
 }
 }
 
-.hexagon.wrong{
+.hex.wrong{
 background:#ff1744 !important;
 animation:shake 0.3s;
 }
 
 @keyframes shake{
-0%,100%{transform:translateX(0);}
-25%{transform:translateX(-5px);}
-75%{transform:translateX(5px);}
+0%,100%{
+transform:translateX(0);
+}
+25%{
+transform:translateX(-5px);
+}
+75%{
+transform:translateX(5px);
+}
 }
 
-.btn-restart{
+button{
 margin-top:25px;
-padding:12px 30px;
+padding:14px 30px;
 border:none;
-border-radius:10px;
+border-radius:12px;
+
 background:#00e5ff;
 color:black;
-font-weight:bold;
+
 font-size:1rem;
+font-weight:bold;
+
 cursor:pointer;
-box-shadow:0 0 15px #00e5ff;
+
+box-shadow:
+0 0 20px rgba(0,229,255,0.5);
+
 transition:0.3s;
 }
 
-.btn-restart:hover{
+button:hover{
 transform:scale(1.05);
-}
-
-.modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.88);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:999;
-}
-
-.modal-content{
-background:#111;
-padding:30px;
-border-radius:20px;
-text-align:center;
-width:90%;
-max-width:350px;
-border:2px solid #00e5ff;
-box-shadow:0 0 30px rgba(0,229,255,0.5);
-animation:pop 0.4s;
-}
-
-@keyframes pop{
-0%{transform:scale(0.5);}
-100%{transform:scale(1);}
-}
-
-.modal-content h2{
-margin-bottom:15px;
-color:#00e5ff;
-}
-
-.modal-content p{
-margin-bottom:20px;
-line-height:1.6;
-}
-
-.btn-pay{
-padding:12px 30px;
-border:none;
-border-radius:10px;
-background:#00ff99;
-color:black;
-font-size:1rem;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 0 15px #00ff99;
 }
 
 .win{
@@ -303,7 +298,24 @@ color:#00ff99 !important;
 }
 
 .lose{
-color:#ff1744 !important;
+color:#ff5252 !important;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:600px){
+
+.hex{
+width:70px;
+height:80px;
+font-size:1.5rem;
+margin:4px;
+}
+
+.row{
+margin-top:-12px;
+}
+
 }
 
 </style>
@@ -311,57 +323,39 @@ color:#ff1744 !important;
 
 <body>
 
-<h1>🔥 Egzagon Memwa PRO MAX 🔥</h1>
+<h1>🔥 EGZAGON MEMORY 8 PRO 🔥</h1>
+
+<div class="surface">
 
 <div class="scoreboard">
 
-<div class="score-box">
-💰 Pwi:
-<span id="kredi-display">500 Goud</span>
-</div>
-
-<div class="score-box">
+<div class="score">
 🏆 Pè:
-<span id="pè-display">0 / 3</span>
+<span id="pairs">0 / 4</span>
 </div>
 
-<div class="score-box">
+<div class="score">
 ❌ Erè:
-<span id="error-display">0 / 2</span>
+<span id="errors">0 / 3</span>
+</div>
+
+<div class="score">
+💰 Rekonpans:
+500 Goud
 </div>
 
 </div>
 
 <div id="status">
-Konfime peman pou kòmanse jwèt la
+Chèche 4 pè yo 🔥
 </div>
 
-<div class="honeycomb" id="honeycomb"></div>
+<div class="board" id="board"></div>
 
-<button class="btn-restart" onclick="showPayment()">
+<button onclick="restartGame()">
 🔄 Rekòmanse
 </button>
 
-<!-- MODAL -->
-
-<div class="modal" id="paymentModal">
-
-<div class="modal-content">
-
-<h2>💎 Peman Obligatwa</h2>
-
-<p>
-Peye <b>5 Goud</b> pou antre nan jwèt la.<br><br>
-
-Jwenn <b>3 pè</b> san plis pase 2 erè
-pou genyen <b>500 Goud</b> 🏆
-</p>
-
-<button class="btn-pay" onclick="payNow()">
-Peye 5 Goud
-</button>
-
-</div>
 </div>
 
 <!-- AUDIO -->
@@ -381,25 +375,17 @@ Peye 5 Goud
 <script>
 
 const values = [
-10,10,
-11,11,
-12,12,
-13,13,
-14,14,
-15,15,
-16,16,
-17,17,
-18,18,
-19,19
+1,1,
+2,2,
+3,3,
+4,4
 ];
 
-const honeycomb = document.getElementById("honeycomb");
-const statusText = document.getElementById("status");
-const paymentModal = document.getElementById("paymentModal");
+const board = document.getElementById("board");
 
-const krediDisplay = document.getElementById("kredi-display");
-const pairDisplay = document.getElementById("pè-display");
-const errorDisplay = document.getElementById("error-display");
+const pairText = document.getElementById("pairs");
+const errorText = document.getElementById("errors");
+const statusText = document.getElementById("status");
 
 const clickSound = document.getElementById("clickSound");
 const winSound = document.getElementById("winSound");
@@ -407,20 +393,22 @@ const loseSound = document.getElementById("loseSound");
 
 let firstCard = null;
 let secondCard = null;
-let lockBoard = true;
+
+let lock = false;
 
 let pairs = 0;
 let errors = 0;
 
 /* MELANJ */
 
-function hardcoreShuffle(array){
+function shuffle(array){
 
 for(let i=array.length-1;i>0;i--){
 
 const j=Math.floor(Math.random()*(i+1));
 
-[array[i],array[j]]=[array[j],array[i]];
+[array[i],array[j]] =
+[array[j],array[i]];
 
 }
 
@@ -428,63 +416,33 @@ return array;
 
 }
 
-function showPayment(){
+/* KREYE TABLO */
 
-paymentModal.style.display="flex";
-lockBoard=true;
+function createBoard(){
 
-}
+board.innerHTML="";
 
-function payNow(){
+const shuffled = shuffle([...values]);
 
-paymentModal.style.display="none";
+const rows = [3,2,3];
 
-statusText.innerHTML="🔥 Jwèt la kòmanse!";
-statusText.className="";
-
-lockBoard=false;
-
-initGame();
-
-}
-
-function initGame(){
-
-honeycomb.innerHTML="";
-
-firstCard=null;
-secondCard=null;
-
-pairs=0;
-errors=0;
-
-pairDisplay.innerHTML="0 / 3";
-errorDisplay.innerHTML="0 / 2";
-
-krediDisplay.innerHTML="500 Goud";
-
-const shuffled =
-hardcoreShuffle([...values]);
-
-const rows=[3,4,5,5,3];
-
-let index=0;
+let index = 0;
 
 rows.forEach(size=>{
 
-const row=document.createElement("div");
+const row = document.createElement("div");
 
 row.classList.add("row");
 
 for(let i=0;i<size;i++){
 
-const value=shuffled[index];
+const value = shuffled[index];
 
-const hex=document.createElement("div");
+const hex = document.createElement("div");
 
-hex.classList.add("hexagon");
+hex.classList.add("hex");
 
-hex.dataset.real=value;
+hex.dataset.value = value;
 
 hex.innerHTML="?";
 
@@ -496,70 +454,72 @@ index++;
 
 }
 
-honeycomb.appendChild(row);
+board.appendChild(row);
 
 });
 
 }
 
+/* TOUNEN KAT */
+
 function flipCard(){
 
-if(lockBoard) return;
+if(lock) return;
 
-if(this===firstCard) return;
+if(this === firstCard) return;
 
 clickSound.play();
 
-this.innerHTML=this.dataset.real;
+this.innerHTML = this.dataset.value;
 
-this.classList.add("flipped");
+this.classList.add("flip");
 
 if(!firstCard){
 
-firstCard=this;
+firstCard = this;
 return;
 
 }
 
-secondCard=this;
+secondCard = this;
 
-lockBoard=true;
+lock = true;
 
 checkMatch();
 
 }
 
+/* VERIFYE */
+
 function checkMatch(){
 
 const match =
-firstCard.dataset.real===
-secondCard.dataset.real;
+firstCard.dataset.value ===
+secondCard.dataset.value;
 
 if(match){
 
-firstCard.classList.add("matched");
-secondCard.classList.add("matched");
+firstCard.classList.add("match");
+secondCard.classList.add("match");
 
 pairs++;
 
-pairDisplay.innerHTML=
-pairs+" / 3";
+pairText.innerHTML =
+pairs + " / 4";
 
-statusText.innerHTML=
-"✅ Bon pè! Kontinye...";
+statusText.innerHTML =
+"🔥 Bon pè!";
 
 resetBoard();
 
-if(pairs===3){
+if(pairs === 4){
 
-statusText.innerHTML=
+statusText.innerHTML =
 "🏆 Ou genyen 500 Goud!";
 
-statusText.className="win";
+statusText.className = "win";
 
 winSound.play();
-
-lockBoard=true;
 
 }
 
@@ -567,16 +527,16 @@ lockBoard=true;
 
 errors++;
 
-errorDisplay.innerHTML=
-errors+" / 2";
+errorText.innerHTML =
+errors + " / 3";
 
 firstCard.classList.add("wrong");
 secondCard.classList.add("wrong");
 
 setTimeout(()=>{
 
-firstCard.classList.remove("flipped","wrong");
-secondCard.classList.remove("flipped","wrong");
+firstCard.classList.remove("wrong","flip");
+secondCard.classList.remove("wrong","flip");
 
 firstCard.innerHTML="?";
 secondCard.innerHTML="?";
@@ -585,38 +545,60 @@ resetBoard();
 
 },900);
 
-if(errors>=2){
+if(errors >= 3){
 
-statusText.innerHTML=
+statusText.innerHTML =
 "❌ Ou pèdi jwèt la";
 
-statusText.className="lose";
-
-krediDisplay.innerHTML="0 Goud";
+statusText.className = "lose";
 
 loseSound.play();
 
-lockBoard=true;
+lock = true;
 
 }
 
 }
 
 }
+
+/* RESET */
 
 function resetBoard(){
 
-[firstCard,secondCard]=[null,null];
+[firstCard,secondCard] =
+[null,null];
 
-if(errors<2 && pairs<3){
+if(errors < 3 && pairs < 4){
 
-lockBoard=false;
+lock = false;
 
 }
 
 }
 
-showPayment();
+/* REKÒMANSE */
+
+function restartGame(){
+
+pairs = 0;
+errors = 0;
+
+pairText.innerHTML = "0 / 4";
+errorText.innerHTML = "0 / 3";
+
+statusText.innerHTML =
+"Chèche 4 pè yo 🔥";
+
+statusText.className = "";
+
+lock = false;
+
+createBoard();
+
+}
+
+createBoard();
 
 </script>
 
