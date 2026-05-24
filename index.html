@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jwèt Egzagon - 20 Pwès</title>
+    <title>Gwo Egzagon Memwa</title>
     <style>
         body {
             background-color: #121212;
@@ -15,97 +15,109 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         h1 {
-            margin-bottom: 5px;
+            margin: 0 0 5px 0;
             color: #00bcd4;
+            font-size: 1.5rem;
+            text-align: center;
         }
 
         #status {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 15px;
             font-weight: bold;
             color: #ffeb3b;
             text-align: center;
-            min-height: 30px;
+            min-height: 24px;
+            padding: 0 10px;
         }
 
-        /* Griy pou 20 egzagon (5 kolòn) */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(5, 75px);
-            gap: 18px 8px;
+        /* Veso prensipal la pou fòme estrikti siwo myel la */
+        .honeycomb {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Sa anpeche egzagon yo gen twòp espas anba ak anwo */
+            padding-top: 15px; 
+        }
+
+        /* Chak ranje nan gwo egzagon an */
+        .row {
+            display: flex;
             justify-content: center;
+            /* Sipèpoze ranje yo vètikalman pou fòme fòm siwo myel la */
+            margin-top: -14px; 
         }
 
-        /* Estil Egzagon */
+        /* Estil pou chak Egzagon (Gwosè optimize pou ekran telefòn) */
         .hexagon {
-            width: 75px;
-            height: 85px;
+            width: 56px;
+            height: 64px;
             background-color: #333;
             position: relative;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: transparent; /* Kache nimewo a */
             cursor: pointer;
             transition: transform 0.2s, background-color 0.3s, color 0.3s;
             user-select: none;
+            margin: 0 2px; /* Ti espas lateral ant egzagon yo */
         }
 
         .hexagon:active {
-            transform: scale(0.95);
+            transform: scale(0.9);
         }
 
-        /* Lè yo klike sou li (Koulè ak nimewo parèt) */
+        /* Lè yo klike sou li */
         .hexagon.flipped {
             color: white !important;
             background-color: var(--bg-color);
         }
 
-        /* Lè de nimewo yo parèy (Yo rete fiks) */
+        /* Lè pè a korèk */
         .hexagon.matched {
             background-color: var(--bg-color);
             color: white;
             pointer-events: none;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
-        /* Lè moun nan PÈDI (Koulè wouj flash pou montre erè a) */
+        /* Lè moun nan pèdi */
         .hexagon.wrong {
             background-color: #d32f2f !important;
             color: white !important;
             animation: shake 0.3s ease-in-out;
         }
 
-        /* Animasyon souke kò lè l pèdi */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
         }
 
-        /* Atribisyon koulè pou chak nan 10 pè yo */
-        .hexagon[data-value="10"] { --bg-color: #00bcd4; } /* Ble */
-        .hexagon[data-value="11"] { --bg-color: #ff9800; } /* Oraunj */
-        .hexagon[data-value="12"] { --bg-color: #4a148c; } /* Vyolèt */
-        .hexagon[data-value="13"] { --bg-color: #e91e63; } /* Woz */
-        .hexagon[data-value="14"] { --bg-color: #2e7d32; } /* Vèt */
-        .hexagon[data-value="15"] { --bg-color: #9c27b0; } /* Indigo */
-        .hexagon[data-value="16"] { --bg-color: #ffeb3b; color: black !important; } /* Jòn */
-        .hexagon[data-value="17"] { --bg-color: #03a9f4; } /* Ble Klè */
-        .hexagon[data-value="18"] { --bg-color: #ff5722; } /* Wouj/Oraunj */
-        .hexagon[data-value="19"] { --bg-color: #009688; } /* Teal */
+        /* Koulè dinamik pou 10 pè yo */
+        .hexagon[data-value="10"] { --bg-color: #00bcd4; } 
+        .hexagon[data-value="11"] { --bg-color: #ff9800; } 
+        .hexagon[data-value="12"] { --bg-color: #4a148c; } 
+        .hexagon[data-value="13"] { --bg-color: #e91e63; } 
+        .hexagon[data-value="14"] { --bg-color: #2e7d32; } 
+        .hexagon[data-value="15"] { --bg-color: #9c27b0; } 
+        .hexagon[data-value="16"] { --bg-color: #ffeb3b; color: black !important; } 
+        .hexagon[data-value="17"] { --bg-color: #03a9f4; } 
+        .hexagon[data-value="18"] { --bg-color: #ff5722; } 
+        .hexagon[data-value="19"] { --bg-color: #009688; } 
 
         button {
-            margin-top: 30px;
-            padding: 12px 25px;
-            font-size: 1rem;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
             background-color: #00bcd4;
             border: none;
             border-radius: 5px;
@@ -122,15 +134,14 @@
 </head>
 <body>
 
-    <h1>Egzagon Memwa (20 Blòk)</h1>
+    <h1>Egzagon Memwa</h1>
     <div id="status">Klike sou yon egzagon pou kòmanse!</div>
 
-    <div class="grid-container" id="grid"></div>
+    <div class="honeycomb" id="honeycomb"></div>
 
     <button onclick="initGame()">Rekòmanse Jwèt la</button>
 
     <script>
-        // 10 pè nimewo (Total 20 egzagon)
         const itemValues = [
             10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 
             15, 15, 16, 16, 17, 17, 18, 18, 19, 19
@@ -141,18 +152,16 @@
         let lockBoard = false;
         let matchesFound = 0;
 
-        const grid = document.getElementById('grid');
+        const honeycomb = document.getElementById('honeycomb');
         const statusText = document.getElementById('status');
 
-        // Melanje nimewo yo aleatwa
         function shuffle(array) {
             return array.sort(() => Math.random() - 0.5);
         }
 
-        // Kòmanse oswa Reyisyalize Jwèt la
         function initGame() {
-            grid.innerHTML = '';
-            statusText.innerText = "Jwenn 10 pè nimewo yo san fè erè!";
+            honeycomb.innerHTML = '';
+            statusText.innerText = "Jwenn 10 pè yo nan gwo egzagon an!";
             statusText.style.color = "#ffeb3b";
             firstCard = null;
             secondCard = null;
@@ -161,14 +170,28 @@
 
             const shuffledValues = shuffle([...itemValues]);
 
-            // Kreye 20 egzagon yo
-            shuffledValues.forEach(value => {
-                const hex = document.createElement('div');
-                hex.classList.add('hexagon');
-                hex.dataset.value = value;
-                hex.innerText = value;
-                hex.addEventListener('click', flipCard);
-                grid.appendChild(hex);
+            // Defini konpòtman estrikti ranje yo (3, 4, 5, 5, 3) = 20 egzagon
+            const rowSizes = [3, 4, 5, 5, 3];
+            let itemIndex = 0;
+
+            rowSizes.forEach(size => {
+                const row = document.createElement('div');
+                row.classList.add('row');
+
+                for (let i = 0; i < size; i++) {
+                    const value = shuffledValues[itemIndex];
+                    
+                    const hex = document.createElement('div');
+                    hex.classList.add('hexagon');
+                    hex.dataset.value = value;
+                    hex.innerText = value;
+                    hex.addEventListener('click', flipCard);
+                    
+                    row.appendChild(hex);
+                    itemIndex++;
+                }
+
+                honeycomb.appendChild(row);
             });
         }
 
@@ -184,7 +207,7 @@
             }
 
             secondCard = this;
-            lockBoard = true; // Bloke tablo a pandan n ap verifye
+            lockBoard = true;
 
             checkMatch();
         }
@@ -199,31 +222,27 @@
             }
         }
 
-        // SI LI JWENN PÈ A (OK)
         function disableCards() {
             firstCard.classList.add('matched');
             secondCard.classList.add('matched');
             
             matchesFound += 2;
             if (matchesFound === itemValues.length) {
-                statusText.innerText = "Magnifik! Ou jwenn tout pè yo! 🎉🏆";
+                statusText.innerText = "Magnifik! Ou genyen jwèt la! 🎉🏆";
                 statusText.style.color = "#4caf50";
             } else {
                 resetBoard();
             }
         }
 
-        // SI LI PÈDI (Lojik kote tou de louvri an wouj)
         function gameOver() {
             statusText.innerText = `Ou pèdi! Ou klike sou ${firstCard.dataset.value} ak ${secondCard.dataset.value} ❌`;
             statusText.style.color = "#f44336";
 
-            // Nou mete klas ".wrong" la sou tou de pou yo ka ret louvri epi vin wouj
             firstCard.classList.add('wrong');
             secondCard.classList.add('wrong');
 
-            // Tablo a ap rete bloke nèt (`lockBoard = true`).
-            // Jwè a oblije peze "Rekòmanse Jwèt la" pou l ka rejwe.
+            lockBoard = true; 
         }
 
         function resetBoard() {
@@ -231,7 +250,6 @@
             lockBoard = false;
         }
 
-        // Lanse jwèt la otomatikman
         initGame();
     </script>
 
