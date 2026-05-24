@@ -153,53 +153,6 @@
         .hexagon[data-value="18"] { --bg-color: #ff5722; --bg-light: #ff8a65; } 
         .hexagon[data-value="19"] { --bg-color: #009688; --bg-light: #4db6ac; } 
 
-        /* Custom Dialogue Box Modal */
-        .modal {
-            display: flex;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: #1e1e1e;
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid #00bcd4;
-            text-align: center;
-            max-width: 300px;
-            width: 80%;
-            box-shadow: 0 0 20px rgba(0,188,212,0.4);
-        }
-
-        .modal-content p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .btn-pay {
-            background-color: #4caf50;
-            color: white;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .btn-pay:hover {
-            background-color: #43a047;
-        }
-
         /* Bouton Rekòmanse anba a */
         .btn-restart {
             margin-top: 25px;
@@ -228,19 +181,11 @@
         <div class="score-box">Pè jwenn: <span id="pè-display">0 / 3</span></div>
     </div>
 
-    <div id="status">Konfime peman an pou kapab jwe!</div>
+    <div id="status">Jwèt la debloke! Jwenn 3 pè san fè erè.</div>
 
     <div class="honeycomb" id="honeycomb"></div>
 
-    <button class="btn-restart" onclick="nanmPemanDialogue()">Peze pou Reyi jwe</button>
-
-    <!-- Custom Dialogue Box pou Peman 5 Goud la -->
-    <div id="pemanModal" class="modal">
-        <div class="modal-content">
-            <p>Pou ou jwe pati sa a, ou dwe peye yon frè antre ki vo <strong>5 Goud</strong>.<br><br>Si ou jwenn 3 pè, ou genyen 500 Goud!</p>
-            <button class="btn-pay" onclick="konfimeEtiPeye()">Wi, Peye 5 Goud</button>
-        </div>
-    </div>
+    <button class="btn-restart" onclick="initGame()">Peze pou Reyi jwe</button>
 
     <script>
         const itemValues = [
@@ -250,32 +195,16 @@
         
         let firstCard = null;
         let secondCard = null;
-        let lockBoard = true; // Bloke tablo a toutotan li pa peye
+        let lockBoard = false; // Koulye a, li pa bloke ankò pa default
         let matchesFound = 0;
 
         const honeycomb = document.getElementById('honeycomb');
         const statusText = document.getElementById('status');
         const krediDisplay = document.getElementById('kredi-display');
         const pèDisplay = document.getElementById('pè-display');
-        const pemanModal = document.getElementById('pemanModal');
 
         function shuffle(array) {
             return array.sort(() => Math.random() - 0.5);
-        }
-
-        // Louvri bwat dyalòg la
-        function nanmPemanDialogue() {
-            pemanModal.style.display = "flex";
-            lockBoard = true;
-            statusText.innerText = "Konfime peman an pou kapab jwe!";
-            statusText.style.color = "#ffeb3b";
-        }
-
-        // Lè jwè a klike sou bouton "Wi, Peye 5 Goud"
-        function konfimeEtiPeye() {
-            pemanModal.style.display = "none";
-            lockBoard = false; // Debloke jwèt la
-            initGame();
         }
 
         function initGame() {
@@ -289,6 +218,7 @@
             firstCard = null;
             secondCard = null;
             matchesFound = 0;
+            lockBoard = false;
 
             const shuffledValues = shuffle([...itemValues]);
             const rowSizes = [3, 4, 5, 5, 3];
@@ -350,11 +280,10 @@
             let pèKounye a = matchesFound / 2;
             pèDisplay.innerText = `${pèKounye a} / 3`;
 
-            // SI LI JWENN 3 PÈ (LI GENYEN OTOMATIKMAN)
             if (pèKounye a === 3) {
                 statusText.innerText = "Felisitasyon! Ou jwenn 3 pè san fè erè! Ou genyen 500 Goud! 🏆💰";
                 statusText.style.color = "#4caf50";
-                lockBoard = true; // Bloke tablo a paske li fin genyen
+                lockBoard = true; 
             } else {
                 resetBoard();
             }
@@ -378,8 +307,8 @@
             lockBoard = false;
         }
 
-        // Lè paj la louvri pou premye fwa, mande peman an dirèk
-        nanmPemanDialogue();
+        // Lanse jwèt la otomatikman lè paj la louvri
+        initGame();
     </script>
 
 </body>
