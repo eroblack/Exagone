@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Egzagon Memwa PRO</title>
+<title>Egzagon Memwa PRO MAX</title>
 
 <style>
 
@@ -15,7 +15,7 @@ box-sizing:border-box;
 
 body{
 background:
-linear-gradient(-45deg,#000,#111,#001a1f,#000);
+linear-gradient(-45deg,#000,#07131d,#00141a,#000);
 background-size:400% 400%;
 animation:bgmove 10s ease infinite;
 font-family:Arial,sans-serif;
@@ -39,7 +39,8 @@ h1{
 font-size:2rem;
 margin-bottom:10px;
 color:#00e5ff;
-text-shadow:0 0 15px #00e5ff;
+text-shadow:0 0 20px #00e5ff;
+text-align:center;
 }
 
 .scoreboard{
@@ -52,10 +53,10 @@ justify-content:center;
 
 .score-box{
 background:#111;
-padding:10px 20px;
+padding:12px 20px;
 border-radius:20px;
 border:1px solid #00e5ff;
-box-shadow:0 0 10px rgba(0,229,255,0.4);
+box-shadow:0 0 15px rgba(0,229,255,0.4);
 font-weight:bold;
 }
 
@@ -66,6 +67,7 @@ font-size:1rem;
 text-align:center;
 color:#fff176;
 min-height:30px;
+padding:0 10px;
 }
 
 .honeycomb{
@@ -73,10 +75,10 @@ display:flex;
 flex-direction:column;
 align-items:center;
 padding:20px;
-border-radius:20px;
+border-radius:25px;
 background:rgba(255,255,255,0.03);
-backdrop-filter:blur(5px);
-box-shadow:0 0 30px rgba(0,229,255,0.15);
+backdrop-filter:blur(6px);
+box-shadow:0 0 40px rgba(0,229,255,0.15);
 }
 
 .row{
@@ -89,13 +91,13 @@ width:65px;
 height:74px;
 margin:3px;
 clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-background:linear-gradient(145deg,#333,#111);
+background:linear-gradient(145deg,#222,#000);
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:1.4rem;
+font-size:1.5rem;
 font-weight:bold;
-color:transparent;
+color:white;
 cursor:pointer;
 transition:0.3s;
 position:relative;
@@ -103,6 +105,7 @@ transform-style:preserve-3d;
 box-shadow:
 0 0 10px rgba(0,0,0,0.5),
 inset 0 0 10px rgba(255,255,255,0.05);
+user-select:none;
 }
 
 .hexagon:hover{
@@ -111,7 +114,6 @@ transform:scale(1.05);
 
 .hexagon.flipped{
 animation:flip 0.4s;
-color:white;
 }
 
 @keyframes flip{
@@ -135,7 +137,6 @@ box-shadow:0 0 25px #00ff99;
 
 .hexagon.wrong{
 background:#ff1744 !important;
-color:white !important;
 animation:shake 0.3s;
 }
 
@@ -144,17 +145,6 @@ animation:shake 0.3s;
 25%{transform:translateX(-5px);}
 75%{transform:translateX(5px);}
 }
-
-.hexagon[data-value="10"]{background:#00bcd4;}
-.hexagon[data-value="11"]{background:#ff9800;}
-.hexagon[data-value="12"]{background:#9c27b0;}
-.hexagon[data-value="13"]{background:#e91e63;}
-.hexagon[data-value="14"]{background:#4caf50;}
-.hexagon[data-value="15"]{background:#3f51b5;}
-.hexagon[data-value="16"]{background:#ffeb3b;color:black!important;}
-.hexagon[data-value="17"]{background:#03a9f4;}
-.hexagon[data-value="18"]{background:#ff5722;}
-.hexagon[data-value="19"]{background:#009688;}
 
 .btn-restart{
 margin-top:25px;
@@ -180,7 +170,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.85);
+background:rgba(0,0,0,0.88);
 display:flex;
 justify-content:center;
 align-items:center;
@@ -211,7 +201,7 @@ color:#00e5ff;
 
 .modal-content p{
 margin-bottom:20px;
-line-height:1.5;
+line-height:1.6;
 }
 
 .btn-pay{
@@ -239,9 +229,10 @@ color:#ff1744 !important;
 
 <body>
 
-<h1>🔥 Egzagon Memwa PRO 🔥</h1>
+<h1>🔥 Egzagon Memwa PRO MAX 🔥</h1>
 
 <div class="scoreboard">
+
 <div class="score-box">
 💰 Pwi:
 <span id="kredi-display">500 Goud</span>
@@ -251,6 +242,12 @@ color:#ff1744 !important;
 🏆 Pè:
 <span id="pè-display">0 / 3</span>
 </div>
+
+<div class="score-box">
+❌ Erè:
+<span id="error-display">0 / 2</span>
+</div>
+
 </div>
 
 <div id="status">
@@ -274,8 +271,8 @@ Konfime peman pou kòmanse jwèt la
 <p>
 Peye <b>5 Goud</b> pou antre nan jwèt la.<br><br>
 
-Si ou jwenn <b>3 pè</b> san erè,
-ou genyen <b>500 Goud</b> 🏆
+Jwenn <b>3 pè</b> san plis pase 2 erè
+pou genyen <b>500 Goud</b> 🏆
 </p>
 
 <button class="btn-pay" onclick="payNow()">
@@ -317,8 +314,10 @@ const values = [
 const honeycomb = document.getElementById("honeycomb");
 const statusText = document.getElementById("status");
 const paymentModal = document.getElementById("paymentModal");
+
 const krediDisplay = document.getElementById("kredi-display");
 const pairDisplay = document.getElementById("pè-display");
+const errorDisplay = document.getElementById("error-display");
 
 const clickSound = document.getElementById("clickSound");
 const winSound = document.getElementById("winSound");
@@ -327,15 +326,46 @@ const loseSound = document.getElementById("loseSound");
 let firstCard = null;
 let secondCard = null;
 let lockBoard = true;
-let pairs = 0;
 
-function shuffle(array){
-return array.sort(()=>Math.random()-0.5);
+let pairs = 0;
+let errors = 0;
+
+/* MELANJ PRO */
+
+function hardcoreShuffle(array){
+
+for(let i=array.length-1;i>0;i--){
+
+const j=Math.floor(Math.random()*(i+1));
+
+[array[i],array[j]]=[array[j],array[i]];
+
+}
+
+/* EVITE PÈ YO PRE */
+
+for(let i=0;i<array.length-1;i++){
+
+if(array[i]===array[i+1]){
+
+let swapIndex=(i+4)%array.length;
+
+[array[i+1],array[swapIndex]]=
+[array[swapIndex],array[i+1]];
+
+}
+
+}
+
+return array;
+
 }
 
 function showPayment(){
+
 paymentModal.style.display="flex";
 lockBoard=true;
+
 }
 
 function payNow(){
@@ -348,6 +378,7 @@ statusText.className="";
 lockBoard=false;
 
 initGame();
+
 }
 
 function initGame(){
@@ -356,11 +387,17 @@ honeycomb.innerHTML="";
 
 firstCard=null;
 secondCard=null;
+
 pairs=0;
+errors=0;
 
 pairDisplay.innerHTML="0 / 3";
+errorDisplay.innerHTML="0 / 2";
 
-const shuffled = shuffle([...values]);
+krediDisplay.innerHTML="500 Goud";
+
+const shuffled =
+hardcoreShuffle([...values]);
 
 const rows=[3,4,5,5,3];
 
@@ -369,6 +406,7 @@ let index=0;
 rows.forEach(size=>{
 
 const row=document.createElement("div");
+
 row.classList.add("row");
 
 for(let i=0;i<size;i++){
@@ -378,14 +416,20 @@ const value=shuffled[index];
 const hex=document.createElement("div");
 
 hex.classList.add("hexagon");
+
 hex.dataset.value=value;
-hex.innerHTML=value;
+hex.dataset.real=value;
+
+/* KACHE NIMEWO YO */
+
+hex.innerHTML="?";
 
 hex.addEventListener("click",flipCard);
 
 row.appendChild(hex);
 
 index++;
+
 }
 
 honeycomb.appendChild(row);
@@ -401,6 +445,8 @@ if(lockBoard) return;
 if(this===firstCard) return;
 
 clickSound.play();
+
+this.innerHTML=this.dataset.real;
 
 this.classList.add("flipped");
 
@@ -421,9 +467,9 @@ checkMatch();
 
 function checkMatch(){
 
-const match=
-firstCard.dataset.value===
-secondCard.dataset.value;
+const match =
+firstCard.dataset.real===
+secondCard.dataset.real;
 
 if(match){
 
@@ -435,12 +481,18 @@ pairs++;
 pairDisplay.innerHTML=
 pairs+" / 3";
 
+statusText.innerHTML=
+"✅ Bon pè! Kontinye...";
+
 resetBoard();
+
+/* GENYEN */
 
 if(pairs===3){
 
 statusText.innerHTML=
 "🏆 Ou genyen 500 Goud!";
+
 statusText.className="win";
 
 winSound.play();
@@ -451,8 +503,29 @@ lockBoard=true;
 
 }else{
 
+errors++;
+
+errorDisplay.innerHTML=
+errors+" / 2";
+
 firstCard.classList.add("wrong");
 secondCard.classList.add("wrong");
+
+setTimeout(()=>{
+
+firstCard.classList.remove("flipped","wrong");
+secondCard.classList.remove("flipped","wrong");
+
+firstCard.innerHTML="?";
+secondCard.innerHTML="?";
+
+resetBoard();
+
+},900);
+
+/* PÈDI */
+
+if(errors>=2){
 
 statusText.innerHTML=
 "❌ Ou pèdi jwèt la";
@@ -469,11 +542,17 @@ lockBoard=true;
 
 }
 
+}
+
 function resetBoard(){
 
 [firstCard,secondCard]=[null,null];
 
+if(errors<2 && pairs<3){
+
 lockBoard=false;
+
+}
 
 }
 
