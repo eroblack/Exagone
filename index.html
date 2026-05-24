@@ -28,7 +28,7 @@
 
         .scoreboard {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 10px;
         }
 
@@ -43,6 +43,10 @@
 
         #kredi-display {
             color: #4caf50;
+        }
+        
+        #pè-display {
+            color: #00bcd4;
         }
 
         #status {
@@ -61,26 +65,25 @@
             flex-direction: column;
             align-items: center;
             padding-top: 10px;
-            background-color: #0a0a0a; /* Fon nwa dèyè a pou fè tras yo parèt byen fon */
+            background-color: #0a0a0a; 
             padding: 20px;
             border-radius: 20px;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* Chak ranje - Nou mete -12px pou yo sipèpoze men kite espas pou tras adoken an */
+        /* Chak ranje */
         .row {
             display: flex;
             justify-content: center;
             margin-top: -12px; 
-            /* Sa pèmèt lonbraj 3D a parèt sou clip-path la */
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.6)); 
         }
 
-        /* Estil Egzagon - Efè Adoken fèt la */
+        /* Estil Egzagon - Adoken */
         .hexagon {
             width: 58px;
             height: 66px;
-            background: linear-gradient(135deg, #3a3a3a 0%, #222222 100%); /* Gradyan pou efè volim 3D */
+            background: linear-gradient(135deg, #3a3a3a 0%, #222222 100%); 
             position: relative;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
@@ -92,10 +95,9 @@
             cursor: pointer;
             transition: transform 0.2s, background 0.3s, color 0.3s;
             user-select: none;
-            margin: 0 3px; /* Espas lateral pou liy adoken an ka parèt nèt */
+            margin: 0 3px; 
         }
 
-        /* Ti limyè anndan adoken an pou l parèt pi reyalis */
         .hexagon::before {
             content: '';
             position: absolute;
@@ -113,7 +115,7 @@
             transform: scale(0.9) translateY(2px);
         }
 
-        /* Lè yo klike sou li (Koulè a pran gradyan tou pou l ret 3D) */
+        /* Lè yo klike sou li */
         .hexagon.flipped {
             color: white !important;
             background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-color) 100%) !important;
@@ -139,7 +141,7 @@
             75% { transform: translateX(4px); }
         }
 
-        /* Koulè 10 pè yo ak vèsyon pi klè yo pou efè gradyan an */
+        /* Koulè 10 pè yo */
         .hexagon[data-value="10"] { --bg-color: #00bcd4; --bg-light: #4dd0e1; } 
         .hexagon[data-value="11"] { --bg-color: #ff9800; --bg-light: #ffb74d; } 
         .hexagon[data-value="12"] { --bg-color: #4a148c; --bg-light: #7b1fa2; } 
@@ -151,7 +153,55 @@
         .hexagon[data-value="18"] { --bg-color: #ff5722; --bg-light: #ff8a65; } 
         .hexagon[data-value="19"] { --bg-color: #009688; --bg-light: #4db6ac; } 
 
-        button {
+        /* Custom Dialogue Box Modal */
+        .modal {
+            display: flex;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #00bcd4;
+            text-align: center;
+            max-width: 300px;
+            width: 80%;
+            box-shadow: 0 0 20px rgba(0,188,212,0.4);
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-pay {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-pay:hover {
+            background-color: #43a047;
+        }
+
+        /* Bouton Rekòmanse anba a */
+        .btn-restart {
             margin-top: 25px;
             padding: 10px 25px;
             font-size: 0.9rem;
@@ -164,7 +214,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        button:hover {
+        .btn-restart:hover {
             background-color: #008ba3;
         }
     </style>
@@ -174,14 +224,23 @@
     <h1>Egzagon Memwa</h1>
     
     <div class="scoreboard">
-        <div class="score-box">Pwi: <span id="kredi-display">50,000 Goud</span></div>
+        <div class="score-box">Pwi: <span id="kredi-display">500 Goud</span></div>
+        <div class="score-box">Pè jwenn: <span id="pè-display">0 / 3</span></div>
     </div>
 
-    <div id="status">Klike sou yon egzagon pou kòmanse!</div>
+    <div id="status">Konfime peman an pou kapab jwe!</div>
 
     <div class="honeycomb" id="honeycomb"></div>
 
-    <button onclick="initGame()">Rekòmanse Jwèt la</button>
+    <button class="btn-restart" onclick="nanmPemanDialogue()">Peze pou Reyi jwe</button>
+
+    <!-- Custom Dialogue Box pou Peman 5 Goud la -->
+    <div id="pemanModal" class="modal">
+        <div class="modal-content">
+            <p>Pou ou jwe pati sa a, ou dwe peye yon frè antre ki vo <strong>5 Goud</strong>.<br><br>Si ou jwenn 3 pè, ou genyen 500 Goud!</p>
+            <button class="btn-pay" onclick="konfimeEtiPeye()">Wi, Peye 5 Goud</button>
+        </div>
+    </div>
 
     <script>
         const itemValues = [
@@ -191,32 +250,45 @@
         
         let firstCard = null;
         let secondCard = null;
-        let lockBoard = false;
+        let lockBoard = true; // Bloke tablo a toutotan li pa peye
         let matchesFound = 0;
-        let potansyelKredi = 50000;
-        let teFeEre = false;
 
         const honeycomb = document.getElementById('honeycomb');
         const statusText = document.getElementById('status');
         const krediDisplay = document.getElementById('kredi-display');
+        const pèDisplay = document.getElementById('pè-display');
+        const pemanModal = document.getElementById('pemanModal');
 
         function shuffle(array) {
             return array.sort(() => Math.random() - 0.5);
         }
 
+        // Louvri bwat dyalòg la
+        function nanmPemanDialogue() {
+            pemanModal.style.display = "flex";
+            lockBoard = true;
+            statusText.innerText = "Konfime peman an pou kapab jwe!";
+            statusText.style.color = "#ffeb3b";
+        }
+
+        // Lè jwè a klike sou bouton "Wi, Peye 5 Goud"
+        function konfimeEtiPeye() {
+            pemanModal.style.display = "none";
+            lockBoard = false; // Debloke jwèt la
+            initGame();
+        }
+
         function initGame() {
             honeycomb.innerHTML = '';
-            statusText.innerText = "Dekouvri tout san ou pa fè erè pou jwenn prim lan!";
+            statusText.innerText = "Jwèt la debloke! Jwenn 3 pè san fè erè.";
             statusText.style.color = "#ffeb3b";
-            krediDisplay.innerText = "50,000 Goud";
+            krediDisplay.innerText = "500 Goud";
             krediDisplay.style.color = "#4caf50";
+            pèDisplay.innerText = "0 / 3";
             
             firstCard = null;
             secondCard = null;
-            lockBoard = false;
             matchesFound = 0;
-            potansyelKredi = 50000;
-            teFeEre = false;
 
             const shuffledValues = shuffle([...itemValues]);
             const rowSizes = [3, 4, 5, 5, 3];
@@ -266,8 +338,6 @@
             if (isMatch) {
                 disableCards();
             } else {
-                teFeEre = true;
-                potansyelKredi = 0;
                 gameOver();
             }
         }
@@ -277,21 +347,21 @@
             secondCard.classList.add('matched');
             
             matchesFound += 2;
-            if (matchesFound === itemValues.length) {
-                if (!teFeEre) {
-                    statusText.innerText = "Felisitasyon! Ou genyen 50,000 Goud nèt! 🏆💰";
-                    statusText.style.color = "#4caf50";
-                } else {
-                    statusText.innerText = "Ou fini jwèt la, men ou pa touche paske ou te fè erè! 🪙";
-                    statusText.style.color = "#ff9800";
-                }
+            let pèKounye a = matchesFound / 2;
+            pèDisplay.innerText = `${pèKounye a} / 3`;
+
+            // SI LI JWENN 3 PÈ (LI GENYEN OTOMATIKMAN)
+            if (pèKounye a === 3) {
+                statusText.innerText = "Felisitasyon! Ou jwenn 3 pè san fè erè! Ou genyen 500 Goud! 🏆💰";
+                statusText.style.color = "#4caf50";
+                lockBoard = true; // Bloke tablo a paske li fin genyen
             } else {
                 resetBoard();
             }
         }
 
         function gameOver() {
-            statusText.innerText = `Ou pèdi prim lan! Ou klike sou ${firstCard.dataset.value} ak ${secondCard.dataset.value} ❌`;
+            statusText.innerText = `Ou pèdi! Ou klike sou ${firstCard.dataset.value} ak ${secondCard.dataset.value} ❌`;
             statusText.style.color = "#f44336";
             
             krediDisplay.innerText = "0 Goud";
@@ -308,7 +378,8 @@
             lockBoard = false;
         }
 
-        initGame();
+        // Lè paj la louvri pou premye fwa, mande peman an dirèk
+        nanmPemanDialogue();
     </script>
 
 </body>
