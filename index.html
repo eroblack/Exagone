@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🔥 Egzagon Memory PAY PRO 🔥</title>
+<title>🔥 Egzagon Jwèt PRO 🔥</title>
 
 <style>
 
@@ -20,9 +20,8 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
+padding:15px;
 overflow:hidden;
-padding:20px;
 
 background:
 linear-gradient(-45deg,
@@ -43,27 +42,13 @@ color:white;
 100%{background-position:0% 50%;}
 }
 
-h1{
-font-size:2rem;
-margin-bottom:20px;
-text-align:center;
+/* CONTAINER */
 
-color:#00f7ff;
-
-text-shadow:
-0 0 10px #00f7ff,
-0 0 25px #00f7ff;
-
-animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{
-transform:scale(1);
-}
-to{
-transform:scale(1.04);
-}
+.container{
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
 /* SURFACE */
@@ -71,7 +56,7 @@ transform:scale(1.04);
 .surface{
 
 width:100%;
-max-width:500px;
+max-width:420px;
 
 padding:25px;
 
@@ -96,6 +81,31 @@ align-items:center;
 position:relative;
 overflow:hidden;
 
+}
+
+/* TITLE */
+
+.title{
+font-size:2rem;
+margin-bottom:20px;
+text-align:center;
+
+color:#00f7ff;
+
+text-shadow:
+0 0 10px #00f7ff,
+0 0 25px #00f7ff;
+
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.04);
+}
 }
 
 /* SCORE */
@@ -123,6 +133,7 @@ box-shadow:
 0 0 15px rgba(0,255,255,0.1);
 
 font-weight:bold;
+font-size:0.95rem;
 }
 
 /* STATUS */
@@ -151,8 +162,8 @@ margin-top:10px;
 
 .hex{
 
-width:100px;
-height:110px;
+width:95px;
+height:105px;
 
 clip-path:polygon(
 50% 0%,
@@ -187,7 +198,7 @@ inset 0 0 15px rgba(255,255,255,0.05);
 
 }
 
-/* KOULÈ */
+/* COLORS */
 
 .hex:nth-child(1){
 background:
@@ -397,11 +408,22 @@ color:#00ff99 !important;
 color:#ff5252 !important;
 }
 
+/* MOBILE */
+
 @media(max-width:600px){
 
+.surface{
+max-width:360px;
+padding:20px;
+}
+
 .hex{
-width:80px;
-height:90px;
+width:78px;
+height:88px;
+font-size:1.5rem;
+}
+
+.title{
 font-size:1.6rem;
 }
 
@@ -412,25 +434,22 @@ font-size:1.6rem;
 
 <body>
 
-<h1>🔥 EGZAGON MEMORY PAY PRO 🔥</h1>
+<div class="container">
 
 <div class="surface">
+
+<div class="title">
+🔥 EGZAGON JWÈT 🔥
+</div>
 
 <div class="scoreboard">
 
 <div class="score">
-🎯 Jwenn:
-<span id="found">0 / 2</span>
+💸 Pri: 5 Goud
 </div>
 
 <div class="score">
-💸 Pri:
-5 Goud
-</div>
-
-<div class="score">
-🏆 Rekonpans:
-15 Goud
+🏆 Rekonpans: 15 Goud
 </div>
 
 </div>
@@ -444,6 +463,8 @@ Peye 5 goud avan ou jwe 🔥
 <button onclick="restartGame()">
 🔄 Rekòmanse
 </button>
+
+</div>
 
 </div>
 
@@ -495,9 +516,6 @@ ou dwe peye <b>5 Goud</b>.
 const board =
 document.getElementById("board");
 
-const foundText =
-document.getElementById("found");
-
 const statusText =
 document.getElementById("status");
 
@@ -522,13 +540,11 @@ let lock = false;
 
 let found = 0;
 
-/* 2 PÈ SELMAN */
-
 const values = [
 1,1,2,2
 ];
 
-/* MELANJ */
+/* SHUFFLE */
 
 function shuffle(array){
 
@@ -546,7 +562,7 @@ return array;
 
 }
 
-/* KREYE BOARD */
+/* CREATE BOARD */
 
 function createBoard(){
 
@@ -577,7 +593,7 @@ board.appendChild(hex);
 
 }
 
-/* PEMAN */
+/* PAYMENT */
 
 function payNow(){
 
@@ -590,15 +606,13 @@ statusText.innerHTML =
 
 }
 
-/* TOUNEN */
+/* FLIP */
 
 function flipCard(){
 
 if(!gameStarted) return;
 
 if(lock) return;
-
-/* PA PEZE MENM KAT LA */
 
 if(this === firstCard) return;
 
@@ -625,7 +639,7 @@ checkResult();
 
 }
 
-/* VERIFYE */
+/* CHECK */
 
 function checkResult(){
 
@@ -640,15 +654,10 @@ secondCard.classList.add("match");
 
 found++;
 
-foundText.innerHTML =
-found + " / 2";
-
 statusText.innerHTML =
 "🔥 Bon chwa";
 
 resetCards();
-
-/* GENYEN */
 
 if(found >= 2){
 
@@ -679,7 +688,7 @@ loseGame();
 
 }
 
-/* PÈDI */
+/* LOSE */
 
 function loseGame(){
 
@@ -690,8 +699,6 @@ statusText.innerHTML =
 
 statusText.className =
 "lose";
-
-/* LOUVRI TOUT KAT YO */
 
 const cards =
 document.querySelectorAll(".hex");
@@ -718,14 +725,11 @@ lock = false;
 
 }
 
-/* REKÒMANSE */
+/* RESTART */
 
 function restartGame(){
 
 found = 0;
-
-foundText.innerHTML =
-"0 / 2";
 
 statusText.innerHTML =
 "Peye 5 goud avan ou jwe 🔥";
