@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Egzagon Memory 8 PRO 🔥</title>
+<title>🔥 EGZAGON MEMORY PAY 5 GOUD 🔥</title>
 
 <style>
 
@@ -11,6 +11,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
@@ -19,21 +20,20 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-font-family:Arial,sans-serif;
 overflow:hidden;
+padding:20px;
 
 background:
 linear-gradient(-45deg,
 #000000,
 #071b2b,
 #00151f,
-#0d001a,
-#000);
+#16001f,
+#000000);
 
 background-size:400% 400%;
 animation:bgMove 10s ease infinite;
 color:white;
-padding:20px;
 }
 
 @keyframes bgMove{
@@ -60,7 +60,7 @@ from{
 transform:scale(1);
 }
 to{
-transform:scale(1.04);
+transform:scale(1.05);
 }
 }
 
@@ -77,12 +77,15 @@ backdrop-filter:blur(12px);
 border:1px solid rgba(255,255,255,0.1);
 
 box-shadow:
-0 0 30px rgba(0,229,255,0.2),
-inset 0 0 20px rgba(255,255,255,0.03);
+0 0 40px rgba(0,229,255,0.25),
+inset 0 0 20px rgba(255,255,255,0.05);
 
 display:flex;
 flex-direction:column;
 align-items:center;
+
+max-width:450px;
+width:100%;
 }
 
 .scoreboard{
@@ -114,13 +117,14 @@ font-size:1rem;
 font-weight:bold;
 color:#fff176;
 text-align:center;
-min-height:25px;
+min-height:30px;
 }
 
 .board{
 display:flex;
 flex-direction:column;
 align-items:center;
+margin-top:10px;
 }
 
 .row{
@@ -135,8 +139,8 @@ margin-top:0;
 /* HEXAGON */
 
 .hex{
-width:90px;
-height:100px;
+width:95px;
+height:105px;
 margin:6px;
 
 clip-path:polygon(
@@ -167,8 +171,9 @@ animation:colorFlow 6s ease infinite;
 
 box-shadow:
 0 0 20px rgba(0,0,0,0.5),
-0 0 15px rgba(255,255,255,0.1),
-inset 0 0 15px rgba(255,255,255,0.08);
+0 0 20px rgba(255,255,255,0.15),
+inset 0 0 20px rgba(255,255,255,0.08);
+
 }
 
 /* KOULÈ */
@@ -221,8 +226,8 @@ scale(1.08)
 rotate(2deg);
 
 box-shadow:
-0 0 20px #00e5ff,
-0 0 40px rgba(255,255,255,0.2);
+0 0 25px #00e5ff,
+0 0 50px rgba(255,255,255,0.25);
 }
 
 .hex.flip{
@@ -248,7 +253,7 @@ from{
 box-shadow:0 0 10px #00ff99;
 }
 to{
-box-shadow:0 0 30px #00ff99;
+box-shadow:0 0 35px #00ff99;
 }
 }
 
@@ -273,9 +278,11 @@ button{
 margin-top:25px;
 padding:14px 30px;
 border:none;
-border-radius:12px;
+border-radius:15px;
 
-background:#00e5ff;
+background:
+linear-gradient(45deg,#00e5ff,#00ff99);
+
 color:black;
 
 font-size:1rem;
@@ -301,306 +308,21 @@ color:#00ff99 !important;
 color:#ff5252 !important;
 }
 
-/* RESPONSIVE */
+/* DIALOG */
 
-@media(max-width:600px){
+.dialog-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
 
-.hex{
-width:70px;
-height:80px;
-font-size:1.5rem;
-margin:4px;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999;
 }
 
-.row{
-margin-top:-12px;
-}
-
-}
-
-</style>
-</head>
-
-<body>
-
-<h1>🔥 EGZAGON MEMORY 8 PRO 🔥</h1>
-
-<div class="surface">
-
-<div class="scoreboard">
-
-<div class="score">
-🏆 Pè:
-<span id="pairs">0 / 4</span>
-</div>
-
-<div class="score">
-❌ Erè:
-<span id="errors">0 / 3</span>
-</div>
-
-<div class="score">
-💰 Rekonpans:
-500 Goud
-</div>
-
-</div>
-
-<div id="status">
-Chèche 4 pè yo 🔥
-</div>
-
-<div class="board" id="board"></div>
-
-<button onclick="restartGame()">
-🔄 Rekòmanse
-</button>
-
-</div>
-
-<!-- AUDIO -->
-
-<audio id="clickSound">
-<source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3">
-</audio>
-
-<audio id="winSound">
-<source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3">
-</audio>
-
-<audio id="loseSound">
-<source src="https://assets.mixkit.co/sfx/preview/mixkit-player-losing-or-failing-2042.mp3">
-</audio>
-
-<script>
-
-const values = [
-1,1,
-2,2,
-3,3,
-4,4
-];
-
-const board = document.getElementById("board");
-
-const pairText = document.getElementById("pairs");
-const errorText = document.getElementById("errors");
-const statusText = document.getElementById("status");
-
-const clickSound = document.getElementById("clickSound");
-const winSound = document.getElementById("winSound");
-const loseSound = document.getElementById("loseSound");
-
-let firstCard = null;
-let secondCard = null;
-
-let lock = false;
-
-let pairs = 0;
-let errors = 0;
-
-/* MELANJ */
-
-function shuffle(array){
-
-for(let i=array.length-1;i>0;i--){
-
-const j=Math.floor(Math.random()*(i+1));
-
-[array[i],array[j]] =
-[array[j],array[i]];
-
-}
-
-return array;
-
-}
-
-/* KREYE TABLO */
-
-function createBoard(){
-
-board.innerHTML="";
-
-const shuffled = shuffle([...values]);
-
-const rows = [3,2,3];
-
-let index = 0;
-
-rows.forEach(size=>{
-
-const row = document.createElement("div");
-
-row.classList.add("row");
-
-for(let i=0;i<size;i++){
-
-const value = shuffled[index];
-
-const hex = document.createElement("div");
-
-hex.classList.add("hex");
-
-hex.dataset.value = value;
-
-hex.innerHTML="?";
-
-hex.addEventListener("click",flipCard);
-
-row.appendChild(hex);
-
-index++;
-
-}
-
-board.appendChild(row);
-
-});
-
-}
-
-/* TOUNEN KAT */
-
-function flipCard(){
-
-if(lock) return;
-
-if(this === firstCard) return;
-
-clickSound.play();
-
-this.innerHTML = this.dataset.value;
-
-this.classList.add("flip");
-
-if(!firstCard){
-
-firstCard = this;
-return;
-
-}
-
-secondCard = this;
-
-lock = true;
-
-checkMatch();
-
-}
-
-/* VERIFYE */
-
-function checkMatch(){
-
-const match =
-firstCard.dataset.value ===
-secondCard.dataset.value;
-
-if(match){
-
-firstCard.classList.add("match");
-secondCard.classList.add("match");
-
-pairs++;
-
-pairText.innerHTML =
-pairs + " / 4";
-
-statusText.innerHTML =
-"🔥 Bon pè!";
-
-resetBoard();
-
-if(pairs === 4){
-
-statusText.innerHTML =
-"🏆 Ou genyen 500 Goud!";
-
-statusText.className = "win";
-
-winSound.play();
-
-}
-
-}else{
-
-errors++;
-
-errorText.innerHTML =
-errors + " / 3";
-
-firstCard.classList.add("wrong");
-secondCard.classList.add("wrong");
-
-setTimeout(()=>{
-
-firstCard.classList.remove("wrong","flip");
-secondCard.classList.remove("wrong","flip");
-
-firstCard.innerHTML="?";
-secondCard.innerHTML="?";
-
-resetBoard();
-
-},900);
-
-if(errors >= 3){
-
-statusText.innerHTML =
-"❌ Ou pèdi jwèt la";
-
-statusText.className = "lose";
-
-loseSound.play();
-
-lock = true;
-
-}
-
-}
-
-}
-
-/* RESET */
-
-function resetBoard(){
-
-[firstCard,secondCard] =
-[null,null];
-
-if(errors < 3 && pairs < 4){
-
-lock = false;
-
-}
-
-}
-
-/* REKÒMANSE */
-
-function restartGame(){
-
-pairs = 0;
-errors = 0;
-
-pairText.innerHTML = "0 / 4";
-errorText.innerHTML = "0 / 3";
-
-statusText.innerHTML =
-"Chèche 4 pè yo 🔥";
-
-statusText.className = "";
-
-lock = false;
-
-createBoard();
-
-}
-
-createBoard();
-
-</script>
-
-</body>
-</html>
+.dialog{
+width:320px;
