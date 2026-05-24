@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gwo Egzagon Memwa - Kredi</title>
+    <title>Gwo Egzagon Memwa - Adoken 3D</title>
     <style>
         body {
             background-color: #121212;
@@ -26,7 +26,6 @@
             text-align: center;
         }
 
-        /* Zòn nòt ak kredi */
         .scoreboard {
             display: flex;
             gap: 20px;
@@ -56,26 +55,32 @@
             padding: 0 10px;
         }
 
-        /* Veso prensipal la */
+        /* Veso prensipal siwo myel la */
         .honeycomb {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 10px; 
+            padding-top: 10px;
+            background-color: #0a0a0a; /* Fon nwa dèyè a pou fè tras yo parèt byen fon */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* Chak ranje - Nou rale yo moute pi rèd (-17px) pou yo kole nèt */
+        /* Chak ranje - Nou mete -12px pou yo sipèpoze men kite espas pou tras adoken an */
         .row {
             display: flex;
             justify-content: center;
-            margin-top: -17px; 
+            margin-top: -12px; 
+            /* Sa pèmèt lonbraj 3D a parèt sou clip-path la */
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.6)); 
         }
 
-        /* Estil Egzagon - Nou minimize marj yo pou yo kole sou kote tou */
+        /* Estil Egzagon - Efè Adoken fèt la */
         .hexagon {
             width: 58px;
             height: 66px;
-            background-color: #2a2a2a;
+            background: linear-gradient(135deg, #3a3a3a 0%, #222222 100%); /* Gradyan pou efè volim 3D */
             position: relative;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
@@ -85,31 +90,45 @@
             font-weight: bold;
             color: transparent; 
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s, color 0.3s;
+            transition: transform 0.2s, background 0.3s, color 0.3s;
             user-select: none;
-            margin: 0 1px; /* Kole de bò */
+            margin: 0 3px; /* Espas lateral pou liy adoken an ka parèt nèt */
+        }
+
+        /* Ti limyè anndan adoken an pou l parèt pi reyalis */
+        .hexagon::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: inherit;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            opacity: 0.15;
+            pointer-events: none;
         }
 
         .hexagon:active {
-            transform: scale(0.9);
+            transform: scale(0.9) translateY(2px);
         }
 
-        /* Lè yo klike sou li */
+        /* Lè yo klike sou li (Koulè a pran gradyan tou pou l ret 3D) */
         .hexagon.flipped {
             color: white !important;
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-color) 100%) !important;
         }
 
         /* Lè pè a korèk */
         .hexagon.matched {
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-color) 100%) !important;
             color: white;
             pointer-events: none;
         }
 
         /* Lè moun nan pèdi */
         .hexagon.wrong {
-            background-color: #d32f2f !important;
+            background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%) !important;
             color: white !important;
             animation: shake 0.3s ease-in-out;
         }
@@ -120,17 +139,17 @@
             75% { transform: translateX(4px); }
         }
 
-        /* Koulè 10 pè yo */
-        .hexagon[data-value="10"] { --bg-color: #00bcd4; } 
-        .hexagon[data-value="11"] { --bg-color: #ff9800; } 
-        .hexagon[data-value="12"] { --bg-color: #4a148c; } 
-        .hexagon[data-value="13"] { --bg-color: #e91e63; } 
-        .hexagon[data-value="14"] { --bg-color: #2e7d32; } 
-        .hexagon[data-value="15"] { --bg-color: #9c27b0; } 
-        .hexagon[data-value="16"] { --bg-color: #ffeb3b; color: black !important; } 
-        .hexagon[data-value="17"] { --bg-color: #03a9f4; } 
-        .hexagon[data-value="18"] { --bg-color: #ff5722; } 
-        .hexagon[data-value="19"] { --bg-color: #009688; } 
+        /* Koulè 10 pè yo ak vèsyon pi klè yo pou efè gradyan an */
+        .hexagon[data-value="10"] { --bg-color: #00bcd4; --bg-light: #4dd0e1; } 
+        .hexagon[data-value="11"] { --bg-color: #ff9800; --bg-light: #ffb74d; } 
+        .hexagon[data-value="12"] { --bg-color: #4a148c; --bg-light: #7b1fa2; } 
+        .hexagon[data-value="13"] { --bg-color: #e91e63; --bg-light: #f06292; } 
+        .hexagon[data-value="14"] { --bg-color: #2e7d32; --bg-light: #4caf50; } 
+        .hexagon[data-value="15"] { --bg-color: #9c27b0; --bg-light: #ba68c8; } 
+        .hexagon[data-value="16"] { --bg-color: #ffeb3b; --bg-light: #fff176; color: black !important; } 
+        .hexagon[data-value="17"] { --bg-color: #03a9f4; --bg-light: #4fc3f7; } 
+        .hexagon[data-value="18"] { --bg-color: #ff5722; --bg-light: #ff8a65; } 
+        .hexagon[data-value="19"] { --bg-color: #009688; --bg-light: #4db6ac; } 
 
         button {
             margin-top: 25px;
@@ -248,7 +267,7 @@
                 disableCards();
             } else {
                 teFeEre = true;
-                potansyelKredi = 0; // Depi l pèdi, kredi a tonbe 0
+                potansyelKredi = 0;
                 gameOver();
             }
         }
