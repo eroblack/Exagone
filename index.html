@@ -420,7 +420,7 @@ font-size:1.6rem;
 
 <div class="score">
 🎯 Jwenn:
-<span id="found">0 / 4</span>
+<span id="found">0 / 2</span>
 </div>
 
 <div class="score">
@@ -522,10 +522,10 @@ let lock = false;
 
 let found = 0;
 
-/* VALE */
+/* 2 PÈ SELMAN */
 
 const values = [
-1,2,3,4
+1,1,2,2
 ];
 
 /* MELANJ */
@@ -586,7 +586,7 @@ dialog.style.display = "none";
 gameStarted = true;
 
 statusText.innerHTML =
-"🔥 Chwazi bon egzagon yo";
+"🔥 Chwazi 2 pè yo";
 
 }
 
@@ -597,6 +597,10 @@ function flipCard(){
 if(!gameStarted) return;
 
 if(lock) return;
+
+/* PA PEZE MENM KAT LA */
+
+if(this === firstCard) return;
 
 clickSound.play();
 
@@ -637,14 +641,16 @@ secondCard.classList.add("match");
 found++;
 
 foundText.innerHTML =
-found + " / 4";
+found + " / 2";
 
 statusText.innerHTML =
 "🔥 Bon chwa";
 
 resetCards();
 
-if(found >= 1){
+/* GENYEN */
+
+if(found >= 2){
 
 statusText.innerHTML =
 "🏆 Ou genyen 15 Goud!";
@@ -680,10 +686,22 @@ function loseGame(){
 loseSound.play();
 
 statusText.innerHTML =
-"❌ Ou rate yon sèl... Ou pèdi";
+"❌ Ou pèdi jwèt la";
 
 statusText.className =
 "lose";
+
+/* LOUVRI TOUT KAT YO */
+
+const cards =
+document.querySelectorAll(".hex");
+
+cards.forEach(card=>{
+
+card.innerHTML =
+card.dataset.value;
+
+});
 
 lock = true;
 
@@ -707,7 +725,7 @@ function restartGame(){
 found = 0;
 
 foundText.innerHTML =
-"0 / 4";
+"0 / 2";
 
 statusText.innerHTML =
 "Peye 5 goud avan ou jwe 🔥";
