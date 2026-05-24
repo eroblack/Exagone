@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 EGZAGON MEMORY PAY 5 GOUD 🔥</title>
+
+<title>🔥 Egzagon Memory PAY PRO 🔥</title>
 
 <style>
 
@@ -25,18 +26,18 @@ padding:20px;
 
 background:
 linear-gradient(-45deg,
-#000000,
-#071b2b,
-#00151f,
-#16001f,
-#000000);
+#000,
+#04131f,
+#12001f,
+#001d1d,
+#000);
 
 background-size:400% 400%;
-animation:bgMove 10s ease infinite;
+animation:bg 12s ease infinite;
 color:white;
 }
 
-@keyframes bgMove{
+@keyframes bg{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
@@ -46,102 +47,112 @@ h1{
 font-size:2rem;
 margin-bottom:20px;
 text-align:center;
-color:#00e5ff;
+
+color:#00f7ff;
 
 text-shadow:
-0 0 10px #00e5ff,
-0 0 25px #00ffff;
+0 0 10px #00f7ff,
+0 0 25px #00f7ff;
 
-animation:titleGlow 2s infinite alternate;
+animation:glow 2s infinite alternate;
 }
 
-@keyframes titleGlow{
+@keyframes glow{
 from{
 transform:scale(1);
 }
 to{
-transform:scale(1.05);
+transform:scale(1.04);
 }
 }
+
+/* SURFACE */
 
 .surface{
 
+width:100%;
+max-width:500px;
+
 padding:25px;
+
 border-radius:30px;
 
 background:
-rgba(255,255,255,0.05);
+rgba(255,255,255,0.06);
 
-backdrop-filter:blur(12px);
+backdrop-filter:blur(15px);
 
-border:1px solid rgba(255,255,255,0.1);
+border:
+1px solid rgba(255,255,255,0.1);
 
 box-shadow:
-0 0 40px rgba(0,229,255,0.25),
-inset 0 0 20px rgba(255,255,255,0.05);
+0 0 30px rgba(0,255,255,0.2),
+inset 0 0 20px rgba(255,255,255,0.04);
 
 display:flex;
 flex-direction:column;
 align-items:center;
 
-max-width:450px;
-width:100%;
+position:relative;
+overflow:hidden;
+
 }
+
+/* SCORE */
 
 .scoreboard{
 display:flex;
 gap:15px;
-margin-bottom:20px;
 flex-wrap:wrap;
 justify-content:center;
+margin-bottom:20px;
 }
 
 .score{
 padding:12px 18px;
+
 border-radius:15px;
 
 background:
 rgba(255,255,255,0.07);
 
-border:1px solid #00e5ff;
+border:
+1px solid rgba(0,255,255,0.3);
 
 box-shadow:
-0 0 15px rgba(0,229,255,0.2);
+0 0 15px rgba(0,255,255,0.1);
 
 font-weight:bold;
 }
+
+/* STATUS */
 
 #status{
 margin-bottom:20px;
 font-size:1rem;
 font-weight:bold;
-color:#fff176;
 text-align:center;
-min-height:30px;
+color:#fff176;
+min-height:25px;
 }
+
+/* BOARD */
 
 .board{
 display:flex;
-flex-direction:column;
+justify-content:center;
 align-items:center;
+flex-wrap:wrap;
+gap:15px;
 margin-top:10px;
-}
-
-.row{
-display:flex;
-margin-top:-18px;
-}
-
-.row:first-child{
-margin-top:0;
 }
 
 /* HEXAGON */
 
 .hex{
-width:95px;
-height:105px;
-margin:6px;
+
+width:100px;
+height:110px;
 
 clip-path:polygon(
 50% 0%,
@@ -162,59 +173,55 @@ font-weight:bold;
 cursor:pointer;
 user-select:none;
 
-position:relative;
-
 transition:0.3s;
 
+position:relative;
+
 background-size:300% 300%;
-animation:colorFlow 6s ease infinite;
+animation:flow 5s ease infinite;
 
 box-shadow:
 0 0 20px rgba(0,0,0,0.5),
-0 0 20px rgba(255,255,255,0.15),
-inset 0 0 20px rgba(255,255,255,0.08);
+0 0 15px rgba(255,255,255,0.08),
+inset 0 0 15px rgba(255,255,255,0.05);
 
 }
 
 /* KOULÈ */
 
-.hex:nth-child(1n){
+.hex:nth-child(1){
 background:
 linear-gradient(-45deg,
 #ff1744,
 #ff9100,
-#ffea00,
-#ff1744);
+#ffea00);
 }
 
-.hex:nth-child(2n){
+.hex:nth-child(2){
 background:
 linear-gradient(-45deg,
 #00e5ff,
 #2979ff,
-#651fff,
-#00e5ff);
+#651fff);
 }
 
-.hex:nth-child(3n){
+.hex:nth-child(3){
 background:
 linear-gradient(-45deg,
 #00ff99,
 #00c853,
-#64dd17,
-#00ff99);
+#64dd17);
 }
 
-.hex:nth-child(4n){
+.hex:nth-child(4){
 background:
 linear-gradient(-45deg,
 #ff00ff,
 #d500f9,
-#651fff,
-#ff00ff);
+#651fff);
 }
 
-@keyframes colorFlow{
+@keyframes flow{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
@@ -226,8 +233,8 @@ scale(1.08)
 rotate(2deg);
 
 box-shadow:
-0 0 25px #00e5ff,
-0 0 50px rgba(255,255,255,0.25);
+0 0 20px #00e5ff,
+0 0 40px rgba(255,255,255,0.2);
 }
 
 .hex.flip{
@@ -253,7 +260,7 @@ from{
 box-shadow:0 0 10px #00ff99;
 }
 to{
-box-shadow:0 0 35px #00ff99;
+box-shadow:0 0 30px #00ff99;
 }
 }
 
@@ -274,14 +281,20 @@ transform:translateX(5px);
 }
 }
 
+/* BUTTON */
+
 button{
 margin-top:25px;
+
 padding:14px 30px;
+
 border:none;
 border-radius:15px;
 
 background:
-linear-gradient(45deg,#00e5ff,#00ff99);
+linear-gradient(45deg,
+#00e5ff,
+#00b0ff);
 
 color:black;
 
@@ -290,14 +303,90 @@ font-weight:bold;
 
 cursor:pointer;
 
-box-shadow:
-0 0 20px rgba(0,229,255,0.5);
-
 transition:0.3s;
+
+box-shadow:
+0 0 20px rgba(0,229,255,0.4);
 }
 
 button:hover{
 transform:scale(1.05);
+}
+
+/* DIALOG */
+
+.dialog{
+
+position:fixed;
+inset:0;
+
+background:
+rgba(0,0,0,0.8);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:999;
+}
+
+.dialog-box{
+
+width:90%;
+max-width:350px;
+
+padding:25px;
+
+border-radius:25px;
+
+background:
+rgba(10,10,20,0.95);
+
+border:
+1px solid rgba(0,255,255,0.2);
+
+box-shadow:
+0 0 30px rgba(0,255,255,0.3);
+
+text-align:center;
+
+animation:pop 0.4s ease;
+}
+
+@keyframes pop{
+from{
+transform:scale(0.7);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.dialog-box h2{
+margin-bottom:15px;
+color:#00e5ff;
+}
+
+.dialog-box p{
+margin-bottom:20px;
+line-height:1.5;
+}
+
+.dialog-buttons{
+display:flex;
+gap:15px;
+justify-content:center;
+}
+
+.payBtn{
+background:#00ff99;
+}
+
+.cancelBtn{
+background:#ff5252;
+color:white;
 }
 
 .win{
@@ -308,21 +397,340 @@ color:#00ff99 !important;
 color:#ff5252 !important;
 }
 
-/* DIALOG */
+@media(max-width:600px){
 
-.dialog-bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:999;
+.hex{
+width:80px;
+height:90px;
+font-size:1.6rem;
 }
 
-.dialog{
-width:320px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🔥 EGZAGON MEMORY PAY PRO 🔥</h1>
+
+<div class="surface">
+
+<div class="scoreboard">
+
+<div class="score">
+🎯 Jwenn:
+<span id="found">0 / 4</span>
+</div>
+
+<div class="score">
+💸 Pri:
+5 Goud
+</div>
+
+<div class="score">
+🏆 Rekonpans:
+15 Goud
+</div>
+
+</div>
+
+<div id="status">
+Peye 5 goud avan ou jwe 🔥
+</div>
+
+<div class="board" id="board"></div>
+
+<button onclick="restartGame()">
+🔄 Rekòmanse
+</button>
+
+</div>
+
+<!-- DIALOG -->
+
+<div class="dialog" id="payDialog">
+
+<div class="dialog-box">
+
+<h2>💰 Peman Obligatwa</h2>
+
+<p>
+Pou kòmanse jwèt la,
+ou dwe peye <b>5 Goud</b>.
+</p>
+
+<div class="dialog-buttons">
+
+<button class="payBtn" onclick="payNow()">
+💸 Peye
+</button>
+
+<button class="cancelBtn">
+❌ Fèmen
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- AUDIO -->
+
+<audio id="clickSound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3">
+</audio>
+
+<audio id="winSound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3">
+</audio>
+
+<audio id="loseSound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-player-losing-or-failing-2042.mp3">
+</audio>
+
+<script>
+
+const board =
+document.getElementById("board");
+
+const foundText =
+document.getElementById("found");
+
+const statusText =
+document.getElementById("status");
+
+const dialog =
+document.getElementById("payDialog");
+
+const clickSound =
+document.getElementById("clickSound");
+
+const winSound =
+document.getElementById("winSound");
+
+const loseSound =
+document.getElementById("loseSound");
+
+let gameStarted = false;
+
+let firstCard = null;
+let secondCard = null;
+
+let lock = false;
+
+let found = 0;
+
+/* VALE */
+
+const values = [
+1,2,3,4
+];
+
+/* MELANJ */
+
+function shuffle(array){
+
+for(let i=array.length-1;i>0;i--){
+
+const j =
+Math.floor(Math.random()*(i+1));
+
+[array[i],array[j]] =
+[array[j],array[i]];
+
+}
+
+return array;
+
+}
+
+/* KREYE BOARD */
+
+function createBoard(){
+
+board.innerHTML = "";
+
+const shuffled =
+shuffle([...values]);
+
+shuffled.forEach(value=>{
+
+const hex =
+document.createElement("div");
+
+hex.classList.add("hex");
+
+hex.dataset.value = value;
+
+hex.innerHTML = "?";
+
+hex.addEventListener(
+"click",
+flipCard
+);
+
+board.appendChild(hex);
+
+});
+
+}
+
+/* PEMAN */
+
+function payNow(){
+
+dialog.style.display = "none";
+
+gameStarted = true;
+
+statusText.innerHTML =
+"🔥 Chwazi bon egzagon yo";
+
+}
+
+/* TOUNEN */
+
+function flipCard(){
+
+if(!gameStarted) return;
+
+if(lock) return;
+
+clickSound.play();
+
+this.innerHTML =
+this.dataset.value;
+
+this.classList.add("flip");
+
+if(!firstCard){
+
+firstCard = this;
+
+return;
+
+}
+
+secondCard = this;
+
+lock = true;
+
+checkResult();
+
+}
+
+/* VERIFYE */
+
+function checkResult(){
+
+const same =
+firstCard.dataset.value ===
+secondCard.dataset.value;
+
+if(same){
+
+firstCard.classList.add("match");
+secondCard.classList.add("match");
+
+found++;
+
+foundText.innerHTML =
+found + " / 4";
+
+statusText.innerHTML =
+"🔥 Bon chwa";
+
+resetCards();
+
+if(found >= 1){
+
+statusText.innerHTML =
+"🏆 Ou genyen 15 Goud!";
+
+statusText.className =
+"win";
+
+winSound.play();
+
+lock = true;
+
+}
+
+}else{
+
+firstCard.classList.add("wrong");
+secondCard.classList.add("wrong");
+
+setTimeout(()=>{
+
+loseGame();
+
+},800);
+
+}
+
+}
+
+/* PÈDI */
+
+function loseGame(){
+
+loseSound.play();
+
+statusText.innerHTML =
+"❌ Ou rate yon sèl... Ou pèdi";
+
+statusText.className =
+"lose";
+
+lock = true;
+
+}
+
+/* RESET */
+
+function resetCards(){
+
+[firstCard,secondCard] =
+[null,null];
+
+lock = false;
+
+}
+
+/* REKÒMANSE */
+
+function restartGame(){
+
+found = 0;
+
+foundText.innerHTML =
+"0 / 4";
+
+statusText.innerHTML =
+"Peye 5 goud avan ou jwe 🔥";
+
+statusText.className = "";
+
+gameStarted = false;
+
+lock = false;
+
+firstCard = null;
+secondCard = null;
+
+dialog.style.display =
+"flex";
+
+createBoard();
+
+}
+
+createBoard();
+
+</script>
+
+</body>
+</html>
