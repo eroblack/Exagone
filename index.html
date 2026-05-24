@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gwo Egzagon Memwa</title>
+    <title>Gwo Egzagon Memwa - Kredi</title>
     <style>
         body {
             background-color: #121212;
@@ -26,6 +26,26 @@
             text-align: center;
         }
 
+        /* Zòn nòt ak kredi */
+        .scoreboard {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .score-box {
+            background-color: #1e1e1e;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        #kredi-display {
+            color: #4caf50;
+        }
+
         #status {
             font-size: 1rem;
             margin-bottom: 15px;
@@ -36,28 +56,26 @@
             padding: 0 10px;
         }
 
-        /* Veso prensipal la pou fòme estrikti siwo myel la */
+        /* Veso prensipal la */
         .honeycomb {
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Sa anpeche egzagon yo gen twòp espas anba ak anwo */
-            padding-top: 15px; 
+            padding-top: 10px; 
         }
 
-        /* Chak ranje nan gwo egzagon an */
+        /* Chak ranje - Nou rale yo moute pi rèd (-17px) pou yo kole nèt */
         .row {
             display: flex;
             justify-content: center;
-            /* Sipèpoze ranje yo vètikalman pou fòme fòm siwo myel la */
-            margin-top: -14px; 
+            margin-top: -17px; 
         }
 
-        /* Estil pou chak Egzagon (Gwosè optimize pou ekran telefòn) */
+        /* Estil Egzagon - Nou minimize marj yo pou yo kole sou kote tou */
         .hexagon {
-            width: 56px;
-            height: 64px;
-            background-color: #333;
+            width: 58px;
+            height: 66px;
+            background-color: #2a2a2a;
             position: relative;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
@@ -65,11 +83,11 @@
             justify-content: center;
             font-size: 1.3rem;
             font-weight: bold;
-            color: transparent; /* Kache nimewo a */
+            color: transparent; 
             cursor: pointer;
             transition: transform 0.2s, background-color 0.3s, color 0.3s;
             user-select: none;
-            margin: 0 2px; /* Ti espas lateral ant egzagon yo */
+            margin: 0 1px; /* Kole de bò */
         }
 
         .hexagon:active {
@@ -102,7 +120,7 @@
             75% { transform: translateX(4px); }
         }
 
-        /* Koulè dinamik pou 10 pè yo */
+        /* Koulè 10 pè yo */
         .hexagon[data-value="10"] { --bg-color: #00bcd4; } 
         .hexagon[data-value="11"] { --bg-color: #ff9800; } 
         .hexagon[data-value="12"] { --bg-color: #4a148c; } 
@@ -115,8 +133,8 @@
         .hexagon[data-value="19"] { --bg-color: #009688; } 
 
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
+            margin-top: 25px;
+            padding: 10px 25px;
             font-size: 0.9rem;
             background-color: #00bcd4;
             border: none;
@@ -135,6 +153,11 @@
 <body>
 
     <h1>Egzagon Memwa</h1>
+    
+    <div class="scoreboard">
+        <div class="score-box">Pwi: <span id="kredi-display">50,000 Goud</span></div>
+    </div>
+
     <div id="status">Klike sou yon egzagon pou kòmanse!</div>
 
     <div class="honeycomb" id="honeycomb"></div>
@@ -151,9 +174,12 @@
         let secondCard = null;
         let lockBoard = false;
         let matchesFound = 0;
+        let potansyelKredi = 50000;
+        let teFeEre = false;
 
         const honeycomb = document.getElementById('honeycomb');
         const statusText = document.getElementById('status');
+        const krediDisplay = document.getElementById('kredi-display');
 
         function shuffle(array) {
             return array.sort(() => Math.random() - 0.5);
@@ -161,16 +187,19 @@
 
         function initGame() {
             honeycomb.innerHTML = '';
-            statusText.innerText = "Jwenn 10 pè yo nan gwo egzagon an!";
+            statusText.innerText = "Dekouvri tout san ou pa fè erè pou jwenn prim lan!";
             statusText.style.color = "#ffeb3b";
+            krediDisplay.innerText = "50,000 Goud";
+            krediDisplay.style.color = "#4caf50";
+            
             firstCard = null;
             secondCard = null;
             lockBoard = false;
             matchesFound = 0;
+            potansyelKredi = 50000;
+            teFeEre = false;
 
             const shuffledValues = shuffle([...itemValues]);
-
-            // Defini konpòtman estrikti ranje yo (3, 4, 5, 5, 3) = 20 egzagon
             const rowSizes = [3, 4, 5, 5, 3];
             let itemIndex = 0;
 
@@ -218,6 +247,8 @@
             if (isMatch) {
                 disableCards();
             } else {
+                teFeEre = true;
+                potansyelKredi = 0; // Depi l pèdi, kredi a tonbe 0
                 gameOver();
             }
         }
@@ -228,16 +259,24 @@
             
             matchesFound += 2;
             if (matchesFound === itemValues.length) {
-                statusText.innerText = "Magnifik! Ou genyen jwèt la! 🎉🏆";
-                statusText.style.color = "#4caf50";
+                if (!teFeEre) {
+                    statusText.innerText = "Felisitasyon! Ou genyen 50,000 Goud nèt! 🏆💰";
+                    statusText.style.color = "#4caf50";
+                } else {
+                    statusText.innerText = "Ou fini jwèt la, men ou pa touche paske ou te fè erè! 🪙";
+                    statusText.style.color = "#ff9800";
+                }
             } else {
                 resetBoard();
             }
         }
 
         function gameOver() {
-            statusText.innerText = `Ou pèdi! Ou klike sou ${firstCard.dataset.value} ak ${secondCard.dataset.value} ❌`;
+            statusText.innerText = `Ou pèdi prim lan! Ou klike sou ${firstCard.dataset.value} ak ${secondCard.dataset.value} ❌`;
             statusText.style.color = "#f44336";
+            
+            krediDisplay.innerText = "0 Goud";
+            krediDisplay.style.color = "#f44336";
 
             firstCard.classList.add('wrong');
             secondCard.classList.add('wrong');
