@@ -91,7 +91,7 @@
             justify-content: center;
             font-size: 1.3rem;
             font-weight: bold;
-            color: transparent; 
+            color: transparent; /* Kache nimewo a pa default */
             cursor: pointer;
             transition: transform 0.2s, background 0.3s, color 0.3s;
             user-select: none;
@@ -115,7 +115,7 @@
             transform: scale(0.9) translateY(2px);
         }
 
-        /* Lè yo klike sou li */
+        /* Lè yo klike sou li (KORÈK: Koulè tèks la ap vin blan pou l ka parèt) */
         .hexagon.flipped {
             color: white !important;
             background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-color) 100%) !important;
@@ -124,7 +124,7 @@
         /* Lè pè a korèk */
         .hexagon.matched {
             background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-color) 100%) !important;
-            color: white;
+            color: white !important;
             pointer-events: none;
         }
 
@@ -141,17 +141,20 @@
             75% { transform: translateX(4px); }
         }
 
-        /* Koulè 10 pè yo */
-        .hexagon[data-value="10"] { --bg-color: #00bcd4; --bg-light: #4dd0e1; } 
-        .hexagon[data-value="11"] { --bg-color: #ff9800; --bg-light: #ffb74d; } 
-        .hexagon[data-value="12"] { --bg-color: #4a148c; --bg-light: #7b1fa2; } 
-        .hexagon[data-value="13"] { --bg-color: #e91e63; --bg-light: #f06292; } 
-        .hexagon[data-value="14"] { --bg-color: #2e7d32; --bg-light: #4caf50; } 
-        .hexagon[data-value="15"] { --bg-color: #9c27b0; --bg-light: #ba68c8; } 
-        .hexagon[data-value="16"] { --bg-color: #ffeb3b; --bg-light: #fff176; color: black !important; } 
-        .hexagon[data-value="17"] { --bg-color: #03a9f4; --bg-light: #4fc3f7; } 
-        .hexagon[data-value="18"] { --bg-color: #ff5722; --bg-light: #ff8a65; } 
-        .hexagon[data-value="19"] { --bg-color: #009688; --bg-light: #4db6ac; } 
+        /* Koulè 10 pè yo (KORÈK: klas yo chanje pou match ak CSS la pi fasil) */
+        .hex-10 { --bg-color: #00bcd4; --bg-light: #4dd0e1; } 
+        .hex-11 { --bg-color: #ff9800; --bg-light: #ffb74d; } 
+        .hex-12 { --bg-color: #4a148c; --bg-light: #7b1fa2; } 
+        .hex-13 { --bg-color: #e91e63; --bg-light: #f06292; } 
+        .hex-14 { --bg-color: #2e7d32; --bg-light: #4caf50; } 
+        .hex-15 { --bg-color: #9c27b0; --bg-light: #ba68c8; } 
+        .hex-16 { --bg-color: #ffeb3b; --bg-light: #fff176; } 
+        .hex-17 { --bg-color: #03a9f4; --bg-light: #4fc3f7; } 
+        .hex-18 { --bg-color: #ff5722; --bg-light: #ff8a65; } 
+        .hex-19 { --bg-color: #009688; --bg-light: #4db6ac; } 
+        
+        /* Ti aranjman pou tèks nwa sou koulè jòn la */
+        .hex-16.flipped, .hex-16.matched { color: black !important; }
 
         /* Bouton Rekòmanse anba a */
         .btn-restart {
@@ -195,7 +198,7 @@
         
         let firstCard = null;
         let secondCard = null;
-        let lockBoard = false; // Koulye a, li pa bloke ankò pa default
+        let lockBoard = false; 
         let matchesFound = 0;
 
         const honeycomb = document.getElementById('honeycomb');
@@ -233,6 +236,7 @@
                     
                     const hex = document.createElement('div');
                     hex.classList.add('hexagon');
+                    hex.classList.add(`hex-${value}`); // Ajoute klas koulè a kòrèkteman
                     hex.dataset.value = value;
                     hex.innerText = value;
                     hex.addEventListener('click', flipCard);
@@ -307,7 +311,7 @@
             lockBoard = false;
         }
 
-        // Lanse jwèt la otomatikman lè paj la louvri
+        // Lanse jwèt la otomatikman
         initGame();
     </script>
 
