@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Egzagon Memwa PRO MAX</title>
+<title>🔥 Egzagon Memwa PRO MAX 🔥</title>
 
 <style>
 
@@ -41,6 +41,16 @@ margin-bottom:10px;
 color:#00e5ff;
 text-shadow:0 0 20px #00e5ff;
 text-align:center;
+animation:titleGlow 2s infinite alternate;
+}
+
+@keyframes titleGlow{
+from{
+text-shadow:0 0 10px #00e5ff;
+}
+to{
+text-shadow:0 0 30px #00ffff;
+}
 }
 
 .scoreboard{
@@ -52,10 +62,11 @@ justify-content:center;
 }
 
 .score-box{
-background:#111;
+background:rgba(255,255,255,0.05);
 padding:12px 20px;
 border-radius:20px;
 border:1px solid #00e5ff;
+backdrop-filter:blur(5px);
 box-shadow:0 0 15px rgba(0,229,255,0.4);
 font-weight:bold;
 }
@@ -86,15 +97,26 @@ display:flex;
 margin-top:-12px;
 }
 
+/* EGZAGON */
+
 .hexagon{
 width:65px;
 height:74px;
 margin:3px;
-clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-background:linear-gradient(145deg,#222,#000);
+
+clip-path:polygon(
+50% 0%,
+100% 25%,
+100% 75%,
+50% 100%,
+0% 75%,
+0% 25%
+);
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 font-size:1.5rem;
 font-weight:bold;
 color:white;
@@ -102,23 +124,83 @@ cursor:pointer;
 transition:0.3s;
 position:relative;
 transform-style:preserve-3d;
-box-shadow:
-0 0 10px rgba(0,0,0,0.5),
-inset 0 0 10px rgba(255,255,255,0.05);
 user-select:none;
+
+background-size:300% 300%;
+animation:colorMove 5s ease infinite;
+
+box-shadow:
+0 0 15px rgba(0,0,0,0.6),
+0 0 20px rgba(0,229,255,0.4),
+inset 0 0 15px rgba(255,255,255,0.1);
+}
+
+/* KOULÈ DIFERAN */
+
+.hexagon:nth-child(1n){
+background:
+linear-gradient(-45deg,#ff1744,#ff9100,#ffea00,#ff1744);
+}
+
+.hexagon:nth-child(2n){
+background:
+linear-gradient(-45deg,#00e5ff,#2979ff,#651fff,#00e5ff);
+}
+
+.hexagon:nth-child(3n){
+background:
+linear-gradient(-45deg,#00ff99,#00c853,#64dd17,#00ff99);
+}
+
+.hexagon:nth-child(4n){
+background:
+linear-gradient(-45deg,#ff00ff,#d500f9,#651fff,#ff00ff);
+}
+
+.hexagon:nth-child(5n){
+background:
+linear-gradient(-45deg,#ff6d00,#ff1744,#ffea00,#ff6d00);
+}
+
+@keyframes colorMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 .hexagon:hover{
-transform:scale(1.05);
+transform:
+scale(1.08)
+rotateZ(2deg);
+
+filter:brightness(1.2);
+
+box-shadow:
+0 0 25px #00e5ff,
+0 0 40px rgba(255,255,255,0.4);
 }
 
 .hexagon.flipped{
-animation:flip 0.4s;
+animation:
+flip 0.4s,
+pulse 1s infinite;
 }
 
 @keyframes flip{
 0%{transform:rotateY(0deg);}
 100%{transform:rotateY(180deg);}
+}
+
+@keyframes pulse{
+0%{
+box-shadow:0 0 10px white;
+}
+50%{
+box-shadow:0 0 25px #00e5ff;
+}
+100%{
+box-shadow:0 0 10px white;
+}
 }
 
 .hexagon.matched{
@@ -131,7 +213,7 @@ from{
 box-shadow:0 0 10px #00ff99;
 }
 to{
-box-shadow:0 0 25px #00ff99;
+box-shadow:0 0 30px #00ff99;
 }
 }
 
@@ -330,7 +412,7 @@ let lockBoard = true;
 let pairs = 0;
 let errors = 0;
 
-/* MELANJ PRO */
+/* MELANJ */
 
 function hardcoreShuffle(array){
 
@@ -339,21 +421,6 @@ for(let i=array.length-1;i>0;i--){
 const j=Math.floor(Math.random()*(i+1));
 
 [array[i],array[j]]=[array[j],array[i]];
-
-}
-
-/* EVITE PÈ YO PRE */
-
-for(let i=0;i<array.length-1;i++){
-
-if(array[i]===array[i+1]){
-
-let swapIndex=(i+4)%array.length;
-
-[array[i+1],array[swapIndex]]=
-[array[swapIndex],array[i+1]];
-
-}
 
 }
 
@@ -417,10 +484,7 @@ const hex=document.createElement("div");
 
 hex.classList.add("hexagon");
 
-hex.dataset.value=value;
 hex.dataset.real=value;
-
-/* KACHE NIMEWO YO */
 
 hex.innerHTML="?";
 
@@ -486,8 +550,6 @@ statusText.innerHTML=
 
 resetBoard();
 
-/* GENYEN */
-
 if(pairs===3){
 
 statusText.innerHTML=
@@ -522,8 +584,6 @@ secondCard.innerHTML="?";
 resetBoard();
 
 },900);
-
-/* PÈDI */
 
 if(errors>=2){
 
